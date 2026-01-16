@@ -1,6 +1,4 @@
-import type { Ref } from 'vue';
 import type { LayoutState } from '@/types/layout';
-import { ref, watch } from 'vue';
 
 /**
  * 侧边栏模式枚举
@@ -29,31 +27,16 @@ export function useSidebar(layoutState: Ref<LayoutState>, windowWidth: Ref<numbe
 
   // ==================== 侧边栏状态变量 ====================
 
-  /** 侧边栏是否折叠 */
-  const isCollapsed = ref<boolean>(false);
-
-  /**
-   * 更新侧边栏折叠状态
-   */
-  const updateSidebarStates = (): void => {
+  /** 侧边栏是否折叠（计算属性） */
+  const isCollapsed = computed(() => {
     const width = windowWidth.value;
     if (width < 1024) {
       // 移动端：不折叠
-      isCollapsed.value = false;
-    } else {
-      // 桌面端：同步 layoutState 的折叠状态
-      isCollapsed.value = layoutState.value.isCollapsed;
+      return false;
     }
-  };
-
-  // 监听相关状态变化，更新侧边栏状态
-  watch(
-    [windowWidth, sidebarFixedMode, showMobileSidebar, sidebarHidden, () => layoutState.value.isCollapsed],
-    () => {
-      updateSidebarStates();
-    },
-    { immediate: true },
-  );
+    // 桌面端：同步 layoutState 的折叠状态
+    return layoutState.value.isCollapsed;
+  });
 
   // ==================== 侧边栏状态管理方法 ====================
 
@@ -94,7 +77,6 @@ export function useSidebar(layoutState: Ref<LayoutState>, windowWidth: Ref<numbe
     isCollapsed,
 
     // 方法
-    updateSidebarStates,
     toggleSidebarFixedMode,
     setSidebarRelativeMode,
     setSidebarFixedMode,

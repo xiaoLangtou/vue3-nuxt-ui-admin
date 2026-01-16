@@ -90,7 +90,6 @@ export const useLayoutStore = defineStore(
       layoutConfig,
       layoutState,
       windowWidth,
-      showMobileSidebar: sidebarModule.showMobileSidebar,
       sidebarHidden: sidebarModule.sidebarHidden,
       sidebarFixedMode: sidebarModule.sidebarFixedMode,
 

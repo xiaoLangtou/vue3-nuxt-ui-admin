@@ -1,5 +1,3 @@
-import { ref, watch } from 'vue';
-
 /**
  * 主题状态管理
  */

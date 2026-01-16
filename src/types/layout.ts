@@ -147,8 +147,6 @@ export interface LayoutStoreState {
   layoutState: LayoutState;
   /** 窗口宽度 */
   windowWidth: number;
-  /** 移动端侧边栏显示状态 */
-  showMobileSidebar: boolean;
   /** 侧边栏完全隐藏状态 */
   sidebarHidden: boolean;
   /** 侧边栏模式状态 */

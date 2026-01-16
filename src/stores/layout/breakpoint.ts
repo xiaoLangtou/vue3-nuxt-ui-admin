@@ -64,7 +64,7 @@ export function useBreakpoint() {
   // 监听窗口宽度变化，更新断点状态
   watch(
     windowWidth,
-    (newWidth) => {
+    (newWidth: number) => {
       updateBreakpointStates(newWidth);
     },
     { immediate: true },

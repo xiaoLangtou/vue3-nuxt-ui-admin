@@ -1,5 +1,4 @@
 import type { MenuItem } from '@/types/layout';
-import { nextTick } from 'vue';
 
 /**
  * 生命周期管理
