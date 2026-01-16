@@ -1,0 +1,12 @@
+<script setup lang="ts">
+</script>
+
+<template>
+  <UApp>
+    <RouterView />
+  </UApp>
+</template>
+
+<style lang="scss" scoped>
+
+</style>

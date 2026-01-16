@@ -1,0 +1,64 @@
+/**
+ * 布局尺寸配置文件
+ * 使用 CSS 变量管理布局尺寸，便于动态调整和主题定制
+ */
+
+:root {
+  // ===== 侧边栏尺寸 =====
+  --sidebar-width: 256px;
+  --sidebar-width-collapsed: 64px;
+  
+  // ===== 头部高度 =====
+  --header-height: 64px;
+  --header-height-mobile: 56px;
+  
+  // ===== 标签页高度 =====
+  --tabs-height: 40px;
+  
+  // ===== 底部高度 =====
+  --footer-height: 48px;
+  
+  // ===== 内容区域内边距 =====
+  --content-padding: 24px;
+  --content-padding-mobile: 16px;
+  
+  // ===== 动画过渡 =====
+  --transition-fast: 0.2s;
+  --transition-normal: 0.3s;
+  
+  // ===== Z-Index 层级 =====
+  --z-index-sidebar: 100;
+  --z-index-header: 90;
+  --z-index-tabs: 80;
+}
+
+// SCSS 变量映射 (保留以兼容旧代码)
+$sidebar-width-expanded: var(--sidebar-width);
+$sidebar-width-collapsed: var(--sidebar-width-collapsed);
+
+$header-height-desktop: var(--header-height);
+$header-height-mobile: var(--header-height-mobile);
+$header-height-tablet: var(--header-height); // 保持一致
+
+$tabs-height-desktop: var(--tabs-height);
+$tabs-height-tablet: var(--tabs-height);
+$tabs-height-mobile: var(--tabs-height); // 可以单独定义mobile变量如果需要
+
+$footer-height-desktop: var(--footer-height);
+$footer-height-tablet: var(--footer-height);
+$footer-height-mobile: var(--footer-height);
+
+$main-content-height-desktop: calc(100vh - #{$header-height-desktop});
+$main-content-height-tablet: calc(100vh - #{$header-height-tablet});
+$main-content-height-mobile: calc(100vh - #{$header-height-mobile});
+
+$menu-height-desktop: 48px; // 如有需要可转为变量
+$menu-height-tablet: 48px;
+$menu-height-mobile: 40px;
+
+// 常用 SCSS 变量别名
+$sidebar-width: $sidebar-width-expanded;
+$header-height: $header-height-desktop;
+$tabs-height: $tabs-height-desktop;
+$footer-height: $footer-height-desktop;
+

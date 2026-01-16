@@ -1,0 +1,38 @@
+/* Reset style sheet */
+
+/* 目前项目中使用富文本编辑器需要注释，如果你项目中没有使用富文本编辑器，可以取消注释 */
+body {
+    padding: 0;
+    margin: 0;
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin: 0 !important;
+}
+
+h2{
+    font-size: 1.25rem !important;
+}
+
+h3{
+    font-size: 1.125rem !important;
+}
+
+h4{
+    font-size: 1rem !important;
+}
+
+h5{
+    font-size: 0.875rem !important;
+}
+
+h6{
+    font-size: 0.75rem !important;
+}

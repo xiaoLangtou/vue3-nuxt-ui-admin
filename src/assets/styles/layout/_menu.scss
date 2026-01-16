@@ -1,0 +1,443 @@
+@use './breakpoints' as bp;
+
+.app-menu {
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: all var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  scrollbar-width: none;
+}
+
+.menu-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  transition:
+    padding var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1),
+    gap 0.25s ease;
+  box-sizing: border-box;
+}
+
+/* 移动端样式 */
+.mobile-menu {
+  backdrop-filter: blur(12px);
+  border: none;
+  box-shadow:
+    0 20px 25px -5px rgb(0 0 0 / 0.1),
+    0 8px 10px -6px rgb(0 0 0 / 0.1);
+  background-color: rgb(255 255 255 / 0.95);
+
+  :global(.dark) & {
+    background-color: rgb(15 23 42 / 0.95);
+  }
+  border-radius: 0;
+  transition:
+    transform var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.25s ease;
+}
+
+.mobile-menu .menu-content {
+  gap: 0.25rem;
+  transition: padding 0.3s ease;
+}
+
+/* 桌面端样式 */
+.desktop-menu {
+  transition: all var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/*展开样式 */
+.expanded-menu {
+  padding: 0.5rem;
+}
+
+/* 折叠状态样式 */
+.collapsed-menu {
+  width: 100%;
+  transition: width var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.collapsed-menu .menu-content {
+  align-items: center;
+  gap: 1rem;
+  transition:
+    padding var(--transition-normal) cubic-bezier(0.4, 0, 0.2, 1),
+    align-items 0.25s ease;
+}
+
+/* 菜单项包装器 */
+.menu-item-wrapper {
+  width: 100%;
+  position: relative;
+}
+
+/* 响应式适配 */
+
+@include bp.mobile-only {
+  .mobile-menu {
+    border-radius: 1rem 1rem 0 0;
+  }
+}
+
+@include bp.tablet-only {
+  .desktop-menu .menu-content {
+    padding: 0.5rem;
+  }
+}
+
+/* 性能优化 */
+.app-menu,
+.menu-content,
+.menu-item-wrapper {
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+/* 响应式动画优化 */
+@media (prefers-reduced-motion: reduce) {
+  .app-menu,
+  .menu-content,
+  .menu-item-wrapper,
+  .mobile-menu,
+  .desktop-menu,
+  .collapsed-menu {
+    transition: none;
+    animation: none;
+  }
+}
+
+/* 基础菜单项样式 */
+.menu-item {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  color: var(--text-color-secondary);
+  font-weight: 500;
+  position: relative;
+
+  :global(.dark) & {
+    color: var(--text-color-secondary);
+  }
+  backdrop-filter: blur(8px);
+  box-sizing: border-box;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menu-item:hover {
+  background-color: var(--gray-hover);
+  color: var(--text-color);
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+
+  :global(.dark) & {
+    background-color: var(--gray-hover);
+    color: var(--text-color);
+  }
+}
+
+.menu-item.active {
+  background-color: var(--gray-hover); // Or a slight tint of primary if desired
+  color: var(--primary-color);
+  font-weight: 600;
+
+  :global(.dark) & {
+    background-color: var(--gray-hover);
+    color: var(--primary-color);
+  }
+}
+
+/* 图标样式 */
+.menu-item-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-item-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 0.75rem; // Standard spacing
+  flex-shrink: 0;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 标题样式 */
+.menu-item-title {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+/* 收藏菜单项标题样式 */
+.favorite-item-label {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+/* 箭头样式 */
+.menu-item-arrow {
+  flex-shrink: 0;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0.7;
+}
+
+.menu-item:hover .menu-item-arrow {
+  opacity: 1;
+}
+
+.menu-item-arrow.expanded {
+  transform: rotate(90deg);
+  opacity: 1;
+}
+
+/* 层级缩进 */
+.menu-item.level-1 {
+  padding-left: 1rem;
+  font-size: 14px;
+}
+
+.menu-item.level-2 {
+  padding-left: 3.5rem;
+  font-size: 14px;
+}
+
+.menu-item.level-3 {
+  padding-left: 4.5rem;
+  font-size: 14px;
+}
+
+/* 子菜单 */
+.submenu {
+  margin-top: 0.125rem;
+  margin-bottom: 0.125rem;
+  position: relative;
+}
+
+.submenu-container {
+  position: relative;
+  padding-left: 1rem;
+  margin-left: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+/* 子菜单过渡动画 - 配合 v-show 使用 */
+.submenu-enter-active,
+.submenu-leave-active {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.submenu-enter-from {
+  opacity: 0;
+  transform: translateY(-4px);
+}
+
+.submenu-enter-to {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.submenu-leave-from {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.submenu-leave-to {
+  opacity: 0;
+  transform: translateY(-4px);
+}
+
+/* 垂直连线 */
+.submenu-container::before {
+  content: '';
+  position: absolute;
+  left: 0.75rem;
+  top: -0.25rem;
+  bottom: 0.5rem;
+  width: 1px;
+  background: linear-gradient(to bottom, rgb(107 114 128 / 0.2), rgb(107 114 128 / 0.1));
+
+  :global(.dark) & {
+    background: linear-gradient(to bottom, rgb(71 85 105 / 0.3), rgb(71 85 105 / 0.1));
+  }
+  border-radius: 1px;
+}
+
+/* 折叠状态菜单项 */
+.collapsed-menu-item {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 0.125rem;
+  cursor: pointer;
+  color: var(--text-color-secondary);
+
+  :global(.dark) & {
+    color: var(--text-color-secondary);
+  }
+  backdrop-filter: blur(8px);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.collapsed-menu-item:hover {
+  background-color: var(--gray-hover);
+  color: var(--text-color);
+
+  :global(.dark) & {
+    background-color: var(--gray-hover);
+    color: var(--text-color);
+  }
+}
+
+.collapsed-menu-item.active {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 0.125rem;
+  cursor: pointer;
+  background-color: var(--gray-hover);
+  color: var(--primary-color);
+
+  :global(.dark) & {
+    background-color: var(--gray-hover);
+    color: var(--primary-color);
+  }
+  backdrop-filter: blur(8px);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 悬浮菜单 */
+.floating-menu {
+  position: fixed;
+  z-index: 50;
+  min-width: 13rem;
+  background-color: rgb(255 255 255 / 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgb(226 232 240 / 0.6);
+  border-radius: 6px;
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+
+  :global(.dark) & {
+    background-color: rgb(31 41 55 / 0.95);
+    border-color: rgb(55 65 81 / 0.6);
+  }
+  animation: fadeInScale 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+  .menu-item.level-1 {
+    padding-left: 1rem;
+  }
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.floating-menu-content {
+  padding: 0.75rem;
+}
+
+/* 移动端优化 */
+@include bp.mobile-only {
+  .menu-item {
+    padding: 0.875rem 1rem;
+    font-size: 15px;
+    border-radius: 1rem;
+  }
+
+  .menu-item-icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-right: 0.875rem;
+  }
+
+  .collapsed-menu-item {
+    width: 3rem;
+    height: 3rem;
+  }
+}
+
+.menu-item.parent-highlighted {
+  .menu-item-icon {
+    color: var(--text-color);
+
+    :global(.dark) & {
+      color: var(--text-color);
+    }
+  }
+
+  .menu-item-title {
+    color: var(--text-color);
+    font-weight: 600;
+
+    :global(.dark) & {
+      color: var(--text-color);
+    }
+  }
+}
+
+.collapsed-menu-item.parent-highlighted {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 0.125rem;
+  cursor: pointer;
+  background-color: var(--gray-hover);
+  color: var(--text-color);
+
+  :global(.dark) & {
+    background-color: var(--gray-hover);
+    color: var(--text-color);
+  }
+  backdrop-filter: blur(8px);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* 平板端抽屉样式 */
+.tablet-sidebar-drawer {
+  z-index: 1000;
+
+  .p-drawer-header {
+    border-bottom: 1px solid var(--p-divider-border-color);
+  }
+}

@@ -1,0 +1,30 @@
+html {
+  height: 100%;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+body {
+  color: var(--text-color);
+  background-color: var(--gray-ground);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+}
+
+.layout-wrapper {
+  min-height: 100vh;
+}
+
+.color-weak {
+  filter: invert(1);
+}
+
+.color-gray {
+  filter: grayscale(1);
+}
