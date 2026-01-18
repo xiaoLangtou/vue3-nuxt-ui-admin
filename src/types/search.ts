@@ -2,7 +2,7 @@
  * 搜索相关类型定义
  */
 
-import type { Ref } from 'vue';
+import type { Ref, VNode } from 'vue';
 
 /** 搜索参数接口 */
 export interface SearchParams<T = Record<string, any>> {
@@ -21,7 +21,7 @@ export interface FilterConfig {
   /** 显示标签 */
   label: string;
   /** 筛选类型 */
-  type: 'input' | 'select' | 'multiSelect' | 'date' | 'dateRange' | 'number';
+  type: 'input' | 'select' | 'multiSelect' | 'date' | 'dateRange' | 'number' | 'slot';
   /** 选项列表（用于select和multiSelect） */
   options?: { label: string; value: any }[];
   /** 占位符 */
@@ -34,6 +34,10 @@ export interface FilterConfig {
   rules?: any[];
   /** 提示信息 */
   tooltip?: string;
+  /** 自定义渲染函数 (TSX/h函数) */
+  render?: (props: { value: any; update: (val: any) => void; config: FilterConfig }) => VNode;
+  /** 插槽名称 (配合 type: 'slot' 使用) */
+  slotName?: string;
 }
 
 /** 搜索结果接口 */

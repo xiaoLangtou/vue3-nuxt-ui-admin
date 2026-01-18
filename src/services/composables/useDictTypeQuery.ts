@@ -1,6 +1,6 @@
 import type { IDictType, IDictTypeQuery } from '../types/dict';
-import type { IQueryPage } from '../types/types';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query';
+import type { IPageResult, IQueryPage } from '../types/types';
+import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from '@tanstack/vue-query';
 import { dictTypeService } from '../modules/dict-type';
 import { queryKeys } from '../query-keys';
 
@@ -13,6 +13,35 @@ export function useDictTypeListQuery(query: MaybeRef<IDictTypeQuery & IQueryPage
   return useQuery({
     queryKey: queryKeys.dictType.list(unref(query)),
     queryFn: () => dictTypeService.getDictList(unref(query)),
+  });
+}
+
+/**
+ * 获取字典类型列表(无限滚动)
+ */
+export function useDictTypeInfiniteQuery(
+  query: MaybeRef<IDictTypeQuery>,
+  pageSize: number = 15
+) {
+  return useInfiniteQuery({
+    queryKey: [...queryKeys.dictType.lists(), 'infinite', unref(query), pageSize],
+    queryFn: async ({ pageParam = 1 }) => {
+      return dictTypeService.getDictList({
+        current: pageParam as number,
+        size: pageSize,
+        dictName: unref(query).dictName,
+        ...unref(query),
+      });
+    },
+    getNextPageParam: (lastPage: IPageResult<IDictType>) => {
+      const current = Number(lastPage.pager.current);
+      const totalPage = Number(lastPage.pager.totalPage);
+      if (current < totalPage) {
+        return current + 1;
+      }
+      return undefined;
+    },
+    initialPageParam: 1,
   });
 }
 

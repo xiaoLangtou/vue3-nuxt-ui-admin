@@ -1,7 +1,6 @@
 import type { IDictData, IDictDataQuery } from '../types/dict';
 import type { IQueryPage } from '../types/types';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query';
-import { unref } from 'vue';
 import { dictDataService } from '../modules/dict-data';
 import { queryKeys } from '../query-keys';
 
@@ -12,10 +11,12 @@ type MaybeRef<T> = T | { value: T };
  */
 export function useDictDataListQuery(
   query: MaybeRef<IDictDataQuery & IQueryPage & { typeId: number }>,
+  options?: { enabled?: MaybeRef<boolean> },
 ) {
   return useQuery({
-    queryKey: queryKeys.dictData.list(unref(query)),
+    queryKey: ['dictData', 'list', query] as const,
     queryFn: async () => dictDataService.getDictDataList(unref(query)),
+    enabled: options?.enabled,
   });
 }
 
@@ -55,7 +56,7 @@ export function useUpdateDictDataMutation() {
 
   return useMutation({
     mutationFn: async (data: IDictData) => dictDataService.updateDictData(data),
-    onSuccess: (_, variables) => {
+    onSuccess: (_: any, variables: IDictData) => {
       queryClient.invalidateQueries({ queryKey: queryKeys.dictData.lists() });
       if (variables.id) {
         queryClient.invalidateQueries({

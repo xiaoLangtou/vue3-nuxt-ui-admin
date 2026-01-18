@@ -47,7 +47,7 @@ onUnmounted(() => {
         <!-- 滚动容器 -->
         <div class="flex-1 overflow-y-auto overflow-x-hidden flex flex-col min-h-0">
           <!-- 路由视图 -->
-          <div class="flex-1 p-1 sm:p-2 lg:p-1">
+          <div class="flex-1 p-2 sm:p-2 lg:p-2">
             <router-view />
           </div>
 

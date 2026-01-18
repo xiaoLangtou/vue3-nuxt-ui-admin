@@ -141,19 +141,16 @@ class HttpClient {
 
     // 如果页面还未初始化完成（页面刷新阶段），不显示弹窗，交由路由守卫处理
     if (!isPageInitialized) {
-      console.log('页面初始化阶段，不显示登录弹窗，交由路由守卫处理');
       return;
     }
 
     if (isLoginPage) {
       // 如果已经在登录页面，只显示提示
-      console.log('已在登录页面，只显示提示');
       globalToast.warn('登录已过期，请重新登录');
       return;
     }
 
     // 如果不在登录页面且页面已初始化，显示登录弹窗
-    console.log('不在登录页面且页面已初始化，显示登录弹窗');
     const { showLoginDialog } = useLoginDialog();
     globalToast.warn('登录已过期，请重新登录');
     showLoginDialog();

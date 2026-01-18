@@ -3,6 +3,7 @@ import ui from '@nuxt/ui/vite';
 import tailwindcss from '@tailwindcss/vite';
 
 import vue from '@vitejs/plugin-vue';
+import vueJsx from '@vitejs/plugin-vue-jsx';
 import { defineConfig, loadEnv } from 'vite';
 
 // https://vite.dev/config/
@@ -12,15 +13,19 @@ export default defineConfig(({ mode }) => {
     return {
         plugins: [
             vue(),
+            vueJsx(),
             tailwindcss(),
             ui({
                 ui: {
+                    button:{
+                       slots:{
+                         base:['cursor-pointer']
+                       }
+                    },
                     colors: {
                         primary: 'rose',
                         neutral: 'gray'
                     },
-                    
-
                 },
                 // 使用 Nuxt UI 内置的 autoImport 配置
                 autoImport: {
