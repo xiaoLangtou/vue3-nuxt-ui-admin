@@ -12,7 +12,8 @@ interface ParsedItem {
     dictLabel: string;
     dictValue: string;
     dictSort?: number;
-    dictRemark?: string;
+    dictDesc?: string;
+    remark?: string;
 }
 
 export const usePasteData = () => {
@@ -47,14 +48,15 @@ export const usePasteData = () => {
                     const label = item.dictLabel || item.label || item.name || '';
                     const value = item.dictValue || item.value || '';
                     const sort = item.dictSort || item.sort || 0;
-                    const remark = item.dictRemark || item.remark || item.description || '';
+                    const dictDesc = item.dictDesc || item.desc || "";
+                    const remark = item.dictRemark || item.remark || '';
 
                     if (label || value) {
                         parsedItems.push({
                             dictLabel: String(label),
                             dictValue: String(value),
                             dictSort: Number(sort) || (startSort + parsedItems.length),
-                            dictRemark: String(remark),
+                            dictDesc: String(dictDesc),
                         });
                     }
                 });
@@ -63,14 +65,15 @@ export const usePasteData = () => {
                 const rows = text.split('\n').filter((row: string) => row.trim());
                 rows.forEach((row: string) => {
                     const columns = row.split('\t');
-                    const [label, value, sort, remark] = columns;
+                    const [label, value, sort, dictDesc,remark] = columns;
 
                     if (label?.trim() || value?.trim()) {
                         parsedItems.push({
                             dictLabel: label?.trim() || '',
                             dictValue: value?.trim() || '',
                             dictSort: sort ? Number(sort) || (startSort + parsedItems.length) : (startSort + parsedItems.length),
-                            dictRemark: remark?.trim() || '',
+                            dictDesc: dictDesc?.trim() || '',
+                            remark: remark?.trim() || '',
                         });
                     }
                 });

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { IDictData } from '@/services/types/dict';
 import globalToast from '@/services/core/toast';
-import { useAddDictDataMutation } from '@/services/composables/useDictDataQuery';
+import { useBatchAddDictDataMutation, useUpdateDictDataMutation } from '@/services/composables/useDictDataQuery';
 import { usePasteData } from '../composables/usePasteData';
 import type { TableColumn } from '@nuxt/ui';
 
@@ -9,6 +9,7 @@ import type { TableColumn } from '@nuxt/ui';
  * 字典项编辑对话框 (统一版本)
  *
  * 功能:
+ * - 支持单个编辑
  * - 支持单个/批量添加
  * - 支持手动逐行添加
  * - 支持从 Excel/JSON 粘贴批量导入
@@ -16,17 +17,20 @@ import type { TableColumn } from '@nuxt/ui';
  */
 
 interface DictItem {
-    tempId: string;
+    id?: string | number;
+    tempId?: string;
     dictLabel: string;
     dictValue: string;
     dictSort: number;
-    dictRemark: string;
+    dictDesc: string;
     status: number;
+    dictRemark?: string;
 }
 
 const props = defineProps<{
     dictTypeId?: string | number;
     existingItems?: IDictData[];
+    editItem?: IDictData | null;
 }>();
 
 const emit = defineEmits<{
@@ -37,8 +41,12 @@ const isOpen = defineModel<boolean>('open', { default: false });
 
 const dictItems = ref<DictItem[]>([]);
 
-const { mutateAsync: addDictData, isPending } = useAddDictDataMutation();
+const { mutateAsync: batchAddDictData, isPending: isAdding } = useBatchAddDictDataMutation();
+const { mutateAsync: updateDictData, isPending: isUpdating } = useUpdateDictDataMutation();
 const { pasteText, showPasteArea, handlePaste: handlePasteData, cancelPaste } = usePasteData();
+
+const isPending = computed(() => isAdding.value || isUpdating.value);
+const isEditMode = computed(() => !!props.editItem);
 
 const statusOptions = [
     { label: '启用', value: 1 },
@@ -48,9 +56,10 @@ const statusOptions = [
 const columns: TableColumn<DictItem>[] = [
     { accessorKey: 'dictLabel', header: '字典标签', meta: { class: { th: 'w-[25%]', td: 'w-[25%]' } } },
     { accessorKey: 'dictValue', header: '字典值', meta: { class: { th: 'w-[20%]', td: 'w-[20%]' } } },
+    { accessorKey: 'dictDesc', header: '字典描述', meta: { class: { th: 'w-[20%]', td: 'w-[20%]' } } },
     { accessorKey: 'dictSort', header: '排序', meta: { class: { th: 'w-[10%]', td: 'w-[10%]' } } },
     { accessorKey: 'status', header: '状态', meta: { class: { th: 'w-[15%]', td: 'w-[15%]' } } },
-    { accessorKey: 'dictRemark', header: '备注', meta: { class: { th: 'w-[20%]', td: 'w-[20%]' } } },
+    { accessorKey: 'remark', header: '备注', meta: { class: { th: 'w-[15%]', td: 'w-[15%]' } } },
     { id: 'actions', header: '操作', meta: { class: { th: 'w-[10%] text-center', td: 'w-[10%] text-center' } } },
 ];
 
@@ -59,7 +68,21 @@ const generateTempId = () => {
 };
 
 const initDictItems = () => {
-    dictItems.value = [createEmptyItem()];
+    if (props.editItem) {
+        // 编辑模式:加载现有数据
+        dictItems.value = [{
+            id: props.editItem.id,
+            dictLabel: props.editItem.dictLabel,
+            dictValue: props.editItem.dictValue,
+            dictSort: props.editItem.dictSort || 0,
+            dictDesc: props.editItem.dictDesc || '',
+            dictRemark: props.editItem.dictRemark || '',
+            status: props.editItem.status ?? 1,
+        }];
+    } else {
+        // 新增模式:创建空行
+        dictItems.value = [createEmptyItem()];
+    }
     cancelPaste();
 };
 
@@ -69,7 +92,7 @@ const createEmptyItem = (): DictItem => {
         dictLabel: '',
         dictValue: '',
         dictSort: (props.existingItems?.length || 0) + dictItems.value.length + 1,
-        dictRemark: '',
+        dictDesc: '',
         status: 1,
     };
 };
@@ -95,7 +118,8 @@ const handlePaste = () => {
             dictLabel: item.dictLabel,
             dictValue: item.dictValue,
             dictSort: item.dictSort || startSort,
-            dictRemark: item.dictRemark || '',
+            dictDesc: item.dictDesc || '',
+            dictRemark: item.remark || '',
             status: 1,
         }));
     }, startSort);
@@ -134,22 +158,40 @@ const handleSubmit = async () => {
     }
 
     try {
-        for (const item of dictItems.value) {
-            await addDictData({
+        if (isEditMode.value) {
+            // 编辑模式:更新单个字典项
+            const item = dictItems.value[0];
+            await updateDictData({
+                id: item.id,
                 dictTypeId: props.dictTypeId,
                 dictLabel: item.dictLabel,
                 dictValue: item.dictValue,
                 dictSort: item.dictSort,
+                dictDesc: item.dictDesc,
                 dictRemark: item.dictRemark,
                 status: item.status,
             } as IDictData);
+            globalToast.success('字典项已更新');
+        } else {
+            // 新增模式:批量添加
+            const dataList = dictItems.value.map((item: DictItem) => ({
+                dictTypeId: props.dictTypeId,
+                dictLabel: item.dictLabel,
+                dictValue: item.dictValue,
+                dictSort: item.dictSort,
+                dictDesc: item.dictDesc,
+                dictRemark: item.dictRemark,
+                status: item.status,
+            } as IDictData));
+
+            await batchAddDictData(dataList);
+            globalToast.success(`成功添加 ${dictItems.value.length} 个字典项`);
         }
 
-        globalToast.success(`成功添加 ${dictItems.value.length} 个字典项`);
         emit('success');
         isOpen.value = false;
     } catch (error) {
-        globalToast.error('添加失败');
+        globalToast.error(isEditMode.value ? '更新失败' : '添加失败');
     }
 };
 
@@ -161,10 +203,11 @@ watch(isOpen, (val: boolean) => {
 </script>
 
 <template>
-    <UModal v-model:open="isOpen" title="添加字典项" description="支持单个/批量添加,可从 Excel 粘贴数据"
-        :ui="{ content: 'sm:max-w-5xl' }">
+    <UModal v-model:open="isOpen" :title="isEditMode ? '编辑字典项' : '添加字典项'"
+        :description="isEditMode ? '修改字典项信息' : '支持单个/批量添加,可从 Excel 粘贴数据'"
+        :ui="{ content: 'sm:max-w-[1000px]' }">
         <template #body>
-            <div v-if="!showPasteArea" class="flex justify-end mb-4">
+            <div v-if="!showPasteArea && !isEditMode" class="flex justify-end mb-4">
                 <UButton icon="i-lucide-clipboard-paste" label="粘贴数据" color="primary" variant="soft" size="sm"
                     @click="showPasteArea = true" />
             </div>
@@ -178,8 +221,7 @@ watch(isOpen, (val: boolean) => {
                 <UTextarea v-model="pasteText" :rows="5" placeholder="粘贴 Excel 数据或 JSON 数组" class="mb-2 w-full" />
                 <div class="flex gap-2">
                     <UButton icon="i-lucide-check" label="导入" color="primary" size="sm" @click="handlePaste" />
-                    <UButton icon="i-lucide-x" label="取消" color="gray" variant="ghost" size="sm"
-                        @click="cancelPaste" />
+                    <UButton icon="i-lucide-x" label="取消" color="gray" variant="ghost" size="sm" @click="cancelPaste" />
                 </div>
             </div>
 
@@ -205,11 +247,14 @@ watch(isOpen, (val: boolean) => {
                         </template>
 
                         <template #status-cell="{ row }">
-                            <USelect v-model="row.original.status" :options="statusOptions" option-attribute="label"
+                            <USelect v-model="row.original.status" :items="statusOptions" option-attribute="label"
                                 value-attribute="value" class="w-full" />
                         </template>
 
-                        <template #dictRemark-cell="{ row }">
+                        <template #dictDesc-cell="{ row }">
+                            <UInput v-model="row.original.dictDesc" placeholder="请输入备注" class="w-full" />
+                        </template>
+                        <template #remark-cell="{ row }">
                             <UInput v-model="row.original.dictRemark" placeholder="请输入备注" class="w-full" />
                         </template>
 
@@ -223,7 +268,7 @@ watch(isOpen, (val: boolean) => {
                 </div>
             </div>
 
-            <div class="flex items-center justify-between mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+            <div v-if="!isEditMode" class="flex items-center justify-between mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
                 <div class="flex items-center gap-2">
                     <UButton icon="i-lucide-plus" label="添加一行" color="gray" variant="outline" @click="addRow" />
                     <UBadge color="primary" variant="subtle">
@@ -236,7 +281,7 @@ watch(isOpen, (val: boolean) => {
         <template #footer>
             <div class="flex justify-end gap-2 w-full">
                 <UButton label="取消" color="gray" variant="ghost" @click="isOpen = false" />
-                <UButton label="提交" icon="i-lucide-check" color="primary" :loading="isPending" @click="handleSubmit" />
+                <UButton :label="isEditMode ? '保存' : '提交'" icon="i-lucide-check" color="primary" :loading="isPending" @click="handleSubmit" />
             </div>
         </template>
     </UModal>

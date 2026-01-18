@@ -143,9 +143,9 @@ export const useDictManagement = () => {
   const tableColumns = [
     { accessorKey: 'dictLabel', header: '字典标签' },
     { accessorKey: 'dictValue', header: '字典值' },
+    { accessorKey: 'dictDesc', header: '字典描述' },
     { accessorKey: 'dictSort', header: '排序' },
     { accessorKey: 'status', header: '状态' },
-    { accessorKey: 'isDefault', header: '默认值' },
     { accessorKey: 'dictRemark', header: '备注' },
     { accessorKey: 'createTime', header: '创建时间' },
     { id: 'actions', header: '操作' },

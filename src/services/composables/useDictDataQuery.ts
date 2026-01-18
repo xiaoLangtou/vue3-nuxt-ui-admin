@@ -49,6 +49,20 @@ export function useAddDictDataMutation() {
 }
 
 /**
+ * 批量添加字典数据
+ */
+export function useBatchAddDictDataMutation() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (dataList: IDictData[]) => dictDataService.batchAddDictData(dataList),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.dictData.lists() });
+    },
+  });
+}
+
+/**
  * 更新字典数据
  */
 export function useUpdateDictDataMutation() {

@@ -33,24 +33,22 @@ const views = (import.meta as any).glob('../../views/**/*.vue');
 
 function toRoutes(menus: MenuOptions[]) {
     const routes: RouteRecordRaw[] = [];
-
+    console.log(menus);
     menus.forEach((menu) => {
+
         const componentPath = menu.component;
         const hasChildren = menu.children && menu.children.length > 0;
-
+        console.log(componentPath);
         let component: any;
         let path = '';
 
         if (hasChildren && !componentPath) {
             component = RouterView;
-        }
-
-        else if (componentPath) {
+        } else if (componentPath) {
 
             if (componentPath.startsWith('http://') || componentPath.startsWith('https://')) {
                 return;
             }
-
 
             const normalizedPath = componentPath.startsWith('/') ? componentPath : `/${componentPath}`;
             path = `../../views${normalizedPath}${normalizedPath.includes('.vue') ? '' : '.vue'}`;
@@ -60,11 +58,11 @@ function toRoutes(menus: MenuOptions[]) {
             } else {
                 component = () => import('@/views/error-page/not-found.vue');
             }
-        }
-
-        else {
+        } else {
             return;
         }
+
+
 
         const route: any = {
             name: menu.name,
@@ -76,6 +74,8 @@ function toRoutes(menus: MenuOptions[]) {
                 parentId: menu.parentId,
             },
         };
+
+        console.log(route);
 
         if (hasChildren) {
             route.children = toRoutes(menu.children!);

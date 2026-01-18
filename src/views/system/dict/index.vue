@@ -43,6 +43,7 @@ watchDebounced(
 
 // 字典项对话框
 const dictItemDialogVisible = ref(false);
+const editingDictItem = ref<IDictData | null>(null);
 
 /**
  * 删除字典项
@@ -95,9 +96,18 @@ const handleScroll = (e: Event) => {
 };
 
 /**
- * 打开字典项对话框
+ * 打开字典项对话框(新增)
  */
 const openDictItemDialog = () => {
+    editingDictItem.value = null;
+    dictItemDialogVisible.value = true;
+};
+
+/**
+ * 打开字典项对话框(编辑)
+ */
+const openEditDictItem = (item: IDictData) => {
+    editingDictItem.value = item;
     dictItemDialogVisible.value = true;
 };
 
@@ -128,7 +138,7 @@ const handleRefresh = async () => {
 </script>
 
 <template>
-    <div class="h-full flex overflow-hidden rounded-md gap-3">
+    <div class="h-[calc(100vh-40px-98px-44px)] flex overflow-hidden rounded-md gap-3">
         <!-- 左侧分栏 -->
         <div class="w-80  bg-white  border border-neutral-100 dark:bg-gray-800 flex flex-col rounded-xl">
             <div class="px-6 py-4 relative z-10 bg-white dark:bg-gray-800 rounded-t-xl"
@@ -239,9 +249,8 @@ const handleRefresh = async () => {
                     <div class="flex items-center justify-between">
                         <div class="flex items-center gap-2">
                             <UBadge :label="formatterDictType(selectedDictType.systemFlag)"
-                                :color="selectedDictType.systemFlag === 'SYSTEM' ? 'error' : 'info'" variant="subtle"
-                                size="xs" />
-                            <span class="text-xs text-gray-500 dark:text-gray-400">{{ selectedDictType.dictCode
+                                :color="selectedDictType.systemFlag === 'SYSTEM' ? 'error' : 'info'" variant="subtle" />
+                            <span class=" text-gray-500 dark:text-gray-400">{{ selectedDictType.dictCode
                                 }}</span>
                         </div>
                         <UButton icon="i-lucide-plus" label="添加字典项" size="sm" @click="openDictItemDialog()" />
@@ -277,18 +286,20 @@ const handleRefresh = async () => {
                         </template>
 
                         <template #dictSort-cell="{ row }">
-                            <div class="text-center">{{ row.original.dictSort }}</div>
+                            <span>{{ row.original.dictSort }}</span>
                         </template>
 
                         <template #status-cell="{ row }">
                             <UBadge :label="row.original.status == 1 ? '启用' : '停用'"
-                                :color="row.original.status == 1 ? 'success' : 'error'" variant="subtle" size="xs" />
+                                :color="row.original.status == 1 ? 'success' : 'error'" variant="subtle" />
                         </template>
 
                         <template #actions-cell="{ row }">
                             <div class="flex items-center justify-center gap-1">
+                                <UButton v-tooltip.bottom="'编辑'" icon="i-lucide-pencil" color="gray" variant="ghost"
+                                    @click="openEditDictItem(row.original)" />
                                 <UButton v-tooltip.bottom="'删除'" icon="i-lucide-trash-2" color="red" variant="ghost"
-                                    size="xs" @click="handleDeleteDictItem(row.original)" />
+                                    @click="handleDeleteDictItem(row.original)" />
                             </div>
                         </template>
 
@@ -309,8 +320,8 @@ const handleRefresh = async () => {
     <DictTypeForm ref="dictTypeForm" @success="handleRefresh" />
 
     <!-- 字典项对话框 -->
-    <DictItemDialog v-model:open="dictItemDialogVisible" :dict-type-id="selectedDictTypeId"
-        :existing-items="dictItems" @success="handleDictItemSuccess" />
+    <DictItemDialog v-model:open="dictItemDialogVisible" :dict-type-id="selectedDictTypeId" :existing-items="dictItems"
+        :edit-item="editingDictItem" @success="handleDictItemSuccess" />
 </template>
 
 <style lang="scss" scoped>

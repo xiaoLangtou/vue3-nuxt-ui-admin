@@ -39,6 +39,15 @@ class DictDataService {
   }
 
   /**
+   * 批量添加字典数据
+   * @param {IDictData[]} dataList 字典数据列表
+   * @returns {Promise<ApiResponse>} 添加结果
+   */
+  batchAddDictData(dataList: IDictData[]) {
+    return http.post('/dict/data/add', dataList);
+  }
+
+  /**
    * 更新字典数据
    * @param {IDictData} data
    * @param {string}  data.id 字典数据ID
