@@ -1,5 +1,4 @@
 import type { LayoutConfig, LayoutState } from '@/types/layout.ts';
-import { ref } from 'vue';
 
 /**
  * 布局配置状态管理
@@ -76,9 +75,9 @@ export function useConfig(layoutConfig: Ref<LayoutConfig>, layoutState: Ref<Layo
     /** 主题预设 */
     preset: '${config.preset}',
     /** 主色调 */
-    primary: '${config.primary}',
+    getPrimary: '${config.getPrimary}',
     /** 表面颜色 */
-    gray: ${config.gray ? `'${config.gray}'` : 'null'},
+    getGray: ${config.getGray ? `'${config.getGray}'` : 'null'},
     /** 是否为暗色主题 */
     darkTheme: ${config.darkTheme},
     /** 布局模式 */

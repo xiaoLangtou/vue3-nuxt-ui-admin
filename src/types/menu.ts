@@ -3,11 +3,9 @@
  */
 export enum MenuType {
   /** 目录 */
-  DIRECTORY = 'directory',
+  DIRECTORY = 0,
   /** 菜单 */
-  MENU = 'menu',
-  /** 按钮 */
-  BUTTON = 'button',
+  MENU = 1,
 }
 
 /**
@@ -21,41 +19,76 @@ export enum MenuStatus {
 }
 
 /**
+ * 菜单显示状态枚举
+ */
+export enum MenuState {
+  /** 激活 */
+  ACTIVE = 'active',
+  /** 未激活 */
+  INACTIVE = 'inactive',
+  /** 隐藏 */
+  HIDDEN = 'hidden',
+}
+
+/**
+ * 路由元信息接口
+ */
+export interface RouteMeta {
+  /** 页面缓存 */
+  keepAlive?: boolean;
+  /** 是否需要认证 */
+  requiresAuth?: boolean;
+  /** 允许访问的角色 */
+  roles?: string[];
+  /** 页面标题(用于面包屑/标签页) */
+  title?: string;
+  /** 是否在菜单中隐藏 */
+  hidden?: boolean;
+  /** 是否固定在标签页 */
+  affix?: boolean;
+  /** 面包屑是否显示 */
+  breadcrumb?: boolean;
+}
+
+/**
  * 菜单基础信息
  */
 export interface MenuBase {
   /** 菜单ID */
-  id: string;
-  /** 菜单名称 */
-  name: string;
-  /** 菜单图标 */
-  icon?: string;
+  id?: string;
   /** 菜单类型 */
   type: MenuType;
+  /** 父级菜单ID */
+  parentId?: string | number;
+  /** 菜单名称 */
+  name: string;
   /** 路由路径 */
   path?: string;
   /** 组件路径 */
   component?: string;
+  /** 组件名称(用于keep-alive) */
+  componentName?: string;
   /** 权限标识 */
   permission?: string;
-  /** 是否外链 */
-  isExternal: boolean;
-  /** 外链地址 */
-  externalUrl?: string;
-  /** 是否显示 */
-  visible: boolean;
+  /** 菜单图标 */
+  icon?: string;
   /** 排序 */
   sort: number;
-  /** 父级菜单ID */
-  parentId?: string;
-  /** 状态 */
-  status: MenuStatus;
-  /** 备注 */
-  remark?: string;
+  /** 是否缓存 */
+  isKeepAlive?: string;
+  /** 是否隐藏 */
+  isHide?: string;
+  /** 是否外链 */
+  isIframe?: string;
+  /** 按钮列表 */
+  buttons?: Array<{
+    name: string;
+    permission: string;
+  }>;
   /** 创建时间 */
-  createTime: string;
+  createTime?: string;
   /** 更新时间 */
-  updateTime: string;
+  updateTime?: string;
 }
 
 /**
@@ -96,34 +129,35 @@ export interface ButtonConfig {
 export interface MenuFormData {
   /** 菜单ID（编辑时使用） */
   id?: string;
-  /** 菜单名称 */
-  name: string;
-  /** 菜单图标 */
-  icon?: string;
   /** 菜单类型 */
   type: MenuType;
+  /** 父级菜单ID */
+  parentId?: string | number;
+  /** 菜单名称 */
+  name: string;
   /** 路由路径 */
   path?: string;
   /** 组件路径 */
   component?: string;
+  /** 组件名称（用于keep-alive） */
+  componentName?: string;
   /** 权限标识 */
   permission?: string;
-  /** 是否外链 */
-  isExternal: boolean;
-  /** 外链地址 */
-  externalUrl?: string;
-  /** 是否显示 */
-  visible: boolean;
+  /** 菜单图标 */
+  icon?: string;
   /** 排序 */
   sort: number;
-  /** 父级菜单ID */
-  parentId?: string;
-  /** 状态 */
-  status: MenuStatus;
-  /** 备注 */
-  remark?: string;
+  /** 是否缓存 */
+  isKeepAlive?: string;
+  /** 是否隐藏 */
+  isHide?: string;
+  /** 是否外链 */
+  isIframe?: string;
   /** 按钮列表 */
-  buttons?: ButtonConfig[];
+  buttons?: Array<{
+    name: string;
+    permission: string;
+  }>;
 }
 
 /**

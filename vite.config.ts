@@ -22,6 +22,16 @@ export default defineConfig(({ mode }) => {
                          base:['cursor-pointer']
                        }
                     },
+                    input: {
+                        slots: {
+                            base: ['border-gray-100 dark:border-gray-800']
+                        }
+                    },
+                    table: {
+                        slots: {
+                            base: ['border-gray-100 dark:border-gray-800']
+                        }
+                    },
                     colors: {
                         primary: 'rose',
                         neutral: 'gray'

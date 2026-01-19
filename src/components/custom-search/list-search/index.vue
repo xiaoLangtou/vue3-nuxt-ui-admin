@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { useDebounce } from '@/composables/useDebounce.ts';
-import type { FilterConfig, SearchParams } from '@types/search.ts';
-import { computed, onMounted, reactive, ref, watch, withDefaults } from 'vue';
+import { useDebounce } from '@/composables/useDebounce';
+import type { FilterConfig, SearchParams } from '@/types/search';
 import FilterItem from '../filter-item/index.vue';
+import { ref, reactive, watch } from 'vue';
+import type { root } from 'postcss';
 
 interface Props {
     /** 筛选配置列表 */
@@ -120,6 +121,9 @@ const handleKeywordChange = () => {
     emit('keyword-change', localParams.keyword || '');
 
     if (props.autoSearch) {
+        if (!localParams.pagination) {
+            localParams.pagination = { page: 1, size: 20 };
+        }
         localParams.pagination.page = 1;
         debounce(handleSearch);
     }
@@ -137,6 +141,9 @@ const handleFilterUpdate = (key: string, value: any) => {
         localParams.filters[key] = value;
     }
 
+    if (!localParams.pagination) {
+        localParams.pagination = { page: 1, size: 20 };
+    }
     localParams.pagination.page = 1;
     emit('filter-change', key, value);
 
@@ -172,6 +179,9 @@ const handleSearch = () => {
 const handleReset = () => {
     localParams.keyword = '';
     localParams.filters = {};
+    if (!localParams.pagination) {
+        localParams.pagination = { page: 1, size: 20 };
+    }
     localParams.pagination.page = 1;
 
     // 清除验证错误
@@ -191,6 +201,9 @@ const handleReset = () => {
  */
 const handleClearFilters = () => {
     localParams.filters = {};
+    if (!localParams.pagination) {
+        localParams.pagination = { page: 1, size: 20 };
+    }
     localParams.pagination.page = 1;
 
     // 清除验证错误
@@ -214,6 +227,9 @@ const clearKeyword = () => {
     emit('keyword-change', '');
 
     if (props.autoSearch) {
+        if (!localParams.pagination) {
+            localParams.pagination = { page: 1, size: 20 };
+        }
         localParams.pagination.page = 1;
         debounce(handleSearch);
     }
@@ -284,27 +300,15 @@ defineExpose({
 </script>
 
 <template>
-    <UCard :ui="{ body: { padding: 'p-3 sm:p-4' } }" class="search-container">
+    <div class="w-full px-1 py-2">
         <!-- 基础搜索栏 -->
         <div class="flex flex-col sm:flex-row gap-4">
             <!-- 搜索框组 -->
             <div class="flex flex-1 gap-2 min-w-0">
-                <UInput
-                    v-model="localParams.keyword"
-                    :placeholder="placeholder"
-                    icon="i-lucide-search"
-                    class="flex-1"
-                    @input="handleKeywordChange"
-                    @keyup.enter="handleImmediateSearch"
-                >
+                <UInput v-model="localParams.keyword" :placeholder="placeholder" icon="i-lucide-search" class="flex-1"
+                    @input="handleKeywordChange" @keyup.enter="handleImmediateSearch">
                     <template #trailing v-if="localParams.keyword">
-                        <UButton
-                            color="gray"
-                            variant="link"
-                            icon="i-lucide-x"
-                            :padded="false"
-                            @click="clearKeyword"
-                        />
+                        <UButton color="gray" variant="link" icon="i-lucide-x" :padded="false" @click="clearKeyword" />
                     </template>
                 </UInput>
                 <UButton label="搜索" icon="i-lucide-search" :loading="loading" @click="handleImmediateSearch" />
@@ -312,14 +316,9 @@ defineExpose({
 
             <!-- 操作按钮组 -->
             <div class="flex gap-2 flex-shrink-0 justify-end sm:justify-start">
-                <UButton
-                    v-if="filterConfigs.length > 0"
-                    :label="showAdvanced ? '收起筛选' : '高级筛选'"
-                    :icon="showAdvanced ? 'i-lucide-chevron-up' : 'i-lucide-chevron-down'"
-                    color="gray"
-                    variant="outline"
-                    @click="toggleAdvanced"
-                >
+                <UButton v-if="filterConfigs.length > 0" :label="showAdvanced ? '收起筛选' : '高级筛选'"
+                    :icon="showAdvanced ? 'i-lucide-chevron-up' : 'i-lucide-chevron-down'" color="gray"
+                    variant="outline" @click="toggleAdvanced">
                     <template #trailing v-if="activeFilterCount > 0">
                         <UBadge :label="activeFilterCount" color="primary" size="xs" variant="subtle" />
                     </template>
@@ -330,16 +329,13 @@ defineExpose({
         </div>
 
         <!-- 高级筛选面板 -->
-        <Transition
-            enter-active-class="transition duration-300 ease-out"
-            enter-from-class="transform -translate-y-2 opacity-0"
-            enter-to-class="transform translate-y-0 opacity-100"
-            leave-active-class="transition duration-200 ease-in"
-            leave-from-class="transform translate-y-0 opacity-100"
-            leave-to-class="transform -translate-y-2 opacity-0"
-        >
-            <div v-if="showAdvanced && filterConfigs.length > 0" class="mt-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
-                <div class="p-3 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
+        <Transition enter-active-class="transition duration-300 ease-out"
+            enter-from-class="transform -translate-y-2 opacity-0" enter-to-class="transform translate-y-0 opacity-100"
+            leave-active-class="transition duration-200 ease-in" leave-from-class="transform translate-y-0 opacity-100"
+            leave-to-class="transform -translate-y-2 opacity-0">
+            <div v-if="showAdvanced && filterConfigs.length > 0"
+                class="mt-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-100 dark:border-gray-800">
+                <div class="p-3 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center">
                     <h4 class="font-semibold text-sm flex items-center gap-2 text-gray-900 dark:text-gray-100">
                         <UIcon name="i-lucide-filter" class="text-primary-500 w-4 h-4" />
                         筛选条件
@@ -348,14 +344,9 @@ defineExpose({
 
                 <div class="p-4 grid grid-cols-12 gap-4">
                     <div v-for="filter in filterConfigs" :key="filter.key" :class="getColumnClass(filter)">
-                        <FilterItem
-                            :ref="(el) => (filterRefs[filter.key] = el)"
-                            :config="filter"
-                            :value="localParams.filters[filter.key]"
-                            :immediate="false"
-                            :show-error="showValidationErrors"
-                            @update="handleFilterUpdate"
-                        >
+                        <FilterItem :ref="(el) => (filterRefs[filter.key] = el)" :config="filter"
+                            :value="localParams.filters[filter.key]" :immediate="false"
+                            :show-error="showValidationErrors" @update="handleFilterUpdate">
                             <template v-if="filter.type === 'slot' && filter.slotName" #[filter.slotName]="scope">
                                 <slot :name="filter.slotName" v-bind="scope" />
                             </template>
@@ -363,26 +354,19 @@ defineExpose({
                     </div>
                 </div>
 
-                <div class="p-3 border-t border-gray-200 dark:border-gray-700 flex justify-between items-center flex-wrap gap-2">
+                <div
+                    class="p-3 border-t border-gray-100 dark:border-gray-800 flex justify-between items-center flex-wrap gap-2">
                     <div class="text-sm text-gray-500">
                         <span v-if="activeFilterCount > 0">已设置 {{ activeFilterCount }} 个筛选条件</span>
                     </div>
                     <div class="flex gap-2">
-                        <UButton label="清空筛选" icon="i-lucide-x" size="xs" color="gray" variant="ghost" @click="handleClearFilters" />
-                        <UButton label="应用筛选" icon="i-lucide-check" size="xs" :disabled="!isFormValid" @click="handleImmediateSearch" />
+                        <UButton label="清空筛选" icon="i-lucide-x" size="xs" color="gray" variant="ghost"
+                            @click="handleClearFilters" />
+                        <UButton label="应用筛选" icon="i-lucide-check" size="xs" :disabled="!isFormValid"
+                            @click="handleImmediateSearch" />
                     </div>
                 </div>
             </div>
         </Transition>
-    </UCard>
+    </div>
 </template>
-
-<style scoped>
-/* 
-Styles are mostly handled by Tailwind classes in template.
-Retaining scoped style block for potential overrides if needed, but currently empty/minimal.
-*/
-.search-container {
-    @apply shadow-none;
-}
-</style>

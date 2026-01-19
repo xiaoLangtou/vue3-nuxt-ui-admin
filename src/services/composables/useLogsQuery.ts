@@ -12,10 +12,25 @@ export function useLogsListQuery(
   query: MaybeRef<ILogsQuery & IQueryPage>,
   options?: { enabled?: MaybeRef<boolean> },
 ) {
+  const queryKey = computed(() => {
+    const q = unref(query);
+    return ['logs', 'list', {
+      current: q.current,
+      size: q.size,
+      startTime: q.startTime,
+      endTime: q.endTime,
+      createBy: q.createBy,
+      logType: q.logType,
+      module: q.module,
+      status: q.status,
+    }] as const;
+  });
+
   return useQuery({
-    queryKey: ['logs', 'list', query] as const,
+    queryKey,
     queryFn: async () => logsService.getLogsList(unref(query)),
     enabled: options?.enabled,
+    placeholderData: (previousData: ILogs[]) => previousData,
   });
 }
 

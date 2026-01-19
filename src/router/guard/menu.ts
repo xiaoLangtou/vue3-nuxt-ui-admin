@@ -31,38 +31,40 @@ export interface MenuOptions {
 
 const views = (import.meta as any).glob('../../views/**/*.vue');
 
+
+
 function toRoutes(menus: MenuOptions[]) {
     const routes: RouteRecordRaw[] = [];
-    console.log(menus);
+
     menus.forEach((menu) => {
 
-        const componentPath = menu.component;
+        // 兼容:如果没有 component,使用 path
+        const componentPath = menu.component || menu.path;
         const hasChildren = menu.children && menu.children.length > 0;
-        console.log(componentPath);
         let component: any;
         let path = '';
 
         if (hasChildren && !componentPath) {
             component = RouterView;
         } else if (componentPath) {
-
             if (componentPath.startsWith('http://') || componentPath.startsWith('https://')) {
                 return;
             }
-
             const normalizedPath = componentPath.startsWith('/') ? componentPath : `/${componentPath}`;
             path = `../../views${normalizedPath}${normalizedPath.includes('.vue') ? '' : '.vue'}`;
-
             if (views[path]) {
                 component = views[path];
             } else {
-                component = () => import('@/views/error-page/not-found.vue');
+                // 如果有子菜单,使用 RouterView;否则显示 404
+                if (hasChildren) {
+                    component = RouterView;
+                } else {
+                    component = () => import('@/views/error-page/not-found.vue');
+                }
             }
         } else {
             return;
         }
-
-
 
         const route: any = {
             name: menu.name,
@@ -75,16 +77,12 @@ function toRoutes(menus: MenuOptions[]) {
             },
         };
 
-        console.log(route);
-
         if (hasChildren) {
             route.children = toRoutes(menu.children!);
         }
-
         if (menu.redirect) {
             route.redirect = menu.redirect;
         }
-
         routes.push(route as RouteRecordRaw);
     });
 
@@ -124,6 +122,7 @@ export default function setupMenuGuard(router: Router) {
         try {
             const data = await getAuthMenuList();
 
+           
 
             if (!data.length) {
                 next({ name: '403' });
@@ -131,12 +130,16 @@ export default function setupMenuGuard(router: Router) {
                 return;
             }
 
-            // 添加动态路由
+            // 添加动态路由 - 所有路由都作为 root 的子路由
             const routes = toRoutes(data);
             routes.forEach((route: RouteRecordRaw) => {
                 if (route.name && !router.hasRoute(route.name as string)) {
-
-                    router.addRoute('root', route);
+                    // 作为 root 子路由时,需要将绝对路径转为相对路径
+                    const childRoute = { ...route };
+                    if (childRoute.path && childRoute.path.startsWith('/')) {
+                        childRoute.path = childRoute.path.substring(1);
+                    }
+                    router.addRoute('root', childRoute);
                 }
             });
 

@@ -129,7 +129,7 @@ defineExpose({
 
             <!-- Select / MultiSelect -->
             <USelectMenu v-else-if="config.type === 'select' || config.type === 'multiSelect'" :model-value="value"
-                @update:model-value="handleUpdate" :options="config.options || []" value-attribute="value"
+                @update:model-value="handleUpdate" :items="config.options || []" value-attribute="value"
                 option-attribute="label" :multiple="config.type === 'multiSelect'"
                 :placeholder="config.placeholder || '请选择...'" :color="hasError ? 'red' : 'white'" class="w-full" />
 

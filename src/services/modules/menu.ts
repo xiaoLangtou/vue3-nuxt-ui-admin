@@ -4,10 +4,14 @@ import http from '@/services/core/http';
 
 /**
  * @description 获取菜单列表
- * @param {string} name 菜单名称
+ * @param {object} params 查询参数
+ * @param {string} params.name 菜单名称
+ * @param {string} params.type 菜单类型
+ * @param {number} params.status 菜单状态
+ * @param {boolean} params.visible 是否显示
  */
-export function getMenuTreeList(name?: string) {
-  return http.get<MenuOptions[]>('/menu/tree', { params: { name } });
+export function getMenuTreeList(params?: { name?: string; type?: string; status?: number; visible?: boolean }) {
+  return http.get<MenuOptions[]>('/menu/tree', { params });
 }
 
 /**
@@ -79,12 +83,36 @@ export function batchCreateButtons(menuId: string, buttons: any[]) {
   return http.post('/menu/buttons/batch', { menuId, buttons });
 }
 
+/**
+ * @description 批量删除菜单
+ * @param {string[]} ids 菜单ID列表
+ * @returns
+ */
+export function batchDeleteMenus(ids: string[]) {
+  return http.post('/menu/delete/batch', { ids });
+}
+
+/**
+ * @description 获取父级菜单选项
+ * @param {string} excludeId 排除的菜单ID
+ * @returns
+ */
+export function getParentMenuOptions(excludeId?: string) {
+  return http.get<MenuOptions[]>('/menu/tree', { params: { excludeId } });
+}
+
+export type MenuCreateParams = IMenu;
+export type MenuUpdateParams = IMenu;
+
 // 导出menuApi对象以保持向后兼容
 export const menuApi = {
   getMenuTreeList,
+  getMenuTree: getMenuTreeList, // Alias for compatibility
   createMenu,
   updateMenu,
   deleteMenu,
   getMenuDetail,
   batchCreateButtons,
+  batchDeleteMenus,
+  getParentMenuOptions,
 };

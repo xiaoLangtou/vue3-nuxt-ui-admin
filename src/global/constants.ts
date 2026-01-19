@@ -24,3 +24,9 @@ export const LAYOUT_CONSTANTS = {
   DEBOUNCE_DELAY: 150,
   RESIZE_THRESHOLD: 50,
 } as const;
+
+// 菜单类型字典
+export const MENU_TYPE_DICT: Record<string, string> = {
+  '0': '目录',
+  '1': '菜单',
+} as const;

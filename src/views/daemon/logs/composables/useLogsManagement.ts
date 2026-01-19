@@ -5,7 +5,7 @@ import type { TableColumn } from '@nuxt/ui';
 export const useLogsManagement = () => {
   const pageInfo = ref({
     current: 1,
-    size: 20,
+    size: 10,
   });
 
   const searchParams = ref<ILogsQuery>({
@@ -32,16 +32,16 @@ export const useLogsManagement = () => {
   const total = computed(() => logsData.value?.pager?.total ?? 0);
 
   const tableColumns: TableColumn<ILogs>[] = [
-    { accessorKey: 'id', header: 'ID', meta: { class: { th: 'w-[80px]' } } },
-    { accessorKey: 'logType', header: '日志类型' },
+    { accessorKey: 'logContent', header: '操作内容', meta: { class: { th: 'w-[200px]' } } },
     { accessorKey: 'module', header: '所属模块' },
-    { accessorKey: 'requestMethod', header: '请求方法', meta: { class: { th: 'w-[100px]' } } },
-    { accessorKey: 'requestUrl', header: '请求地址' },
-    { accessorKey: 'requestIp', header: '请求IP' },
-    { accessorKey: 'requestTimeConsume', header: '耗时(ms)', meta: { class: { th: 'w-[100px]' } } },
+    { accessorKey: 'createBy', header: '操作人' },
+    { accessorKey: 'requestTimeConsume', header: '请求耗时' },
     { accessorKey: 'status', header: '状态', meta: { class: { th: 'w-[80px]' } } },
-    { accessorKey: 'createTime', header: '创建时间', meta: { class: { th: 'w-[180px]' } } },
-    { id: 'actions', header: '操作', meta: { class: { th: 'w-[100px]' } } },
+    { accessorKey: 'requestIp', header: '请求IP' },
+    { accessorKey: 'requestIpAddr', header: '地理位置' },
+    { accessorKey: 'browser', header: '浏览器' },
+    { accessorKey: 'os', header: '操作系统' },
+    { id: 'actions', header: '操作', meta: { class: { th: 'w-[100px] text-center', td: "w-[100px] text-center" } } },
   ];
 
   const updateSearch = (params: Partial<ILogsQuery>) => {
@@ -50,6 +50,7 @@ export const useLogsManagement = () => {
   };
 
   const handlePageChange = (page: number) => {
+    console.log(page,"page")
     pageInfo.value.current = page;
   };
 

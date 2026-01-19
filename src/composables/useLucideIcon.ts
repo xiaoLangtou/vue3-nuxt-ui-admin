@@ -8,7 +8,7 @@ export function useLucideIcon() {
   };
 
   const lucideIconName = (icon: string | undefined) => {
-    console.log(icon);
+
     if (!icon)
       return '';
     const iconName = icon.replace('Lucide-', '') ?? '';
@@ -22,3 +22,4 @@ export function useLucideIcon() {
     lucideIconName,
   };
 }
+   
