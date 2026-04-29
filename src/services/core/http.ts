@@ -81,7 +81,7 @@ class HttpClient {
           const { status, data } = error.response;
           switch (status) {
             case 401:
-              this.handleUnauthorized();
+              await this.handleUnauthorized();
               break;
             case 403:
               this.showError('没有权限访问', config?.showError);

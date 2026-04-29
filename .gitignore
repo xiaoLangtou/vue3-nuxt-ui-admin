@@ -29,3 +29,5 @@ src/types/components.d.ts
 *.njsproj
 *.sln
 *.sw?
+
+.codeartsdoer

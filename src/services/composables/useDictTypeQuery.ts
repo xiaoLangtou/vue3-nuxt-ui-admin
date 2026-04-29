@@ -26,16 +26,21 @@ export function useDictTypeInfiniteQuery(
   return useInfiniteQuery({
     queryKey: [...queryKeys.dictType.lists(), 'infinite', unref(query), pageSize],
     queryFn: async ({ pageParam = 1 }) => {
-      return dictTypeService.getDictList({
+      const res = await dictTypeService.getDictList({
         current: pageParam as number,
         size: pageSize,
         dictName: unref(query).dictName,
         ...unref(query),
       });
+      // 兼容后端字段：后端返回 page, 前端统一用 pager
+      return {
+        records: res.records,
+        pager: (res as any).pager ?? (res as any).page,
+      } as IPageResult<IDictType>;
     },
     getNextPageParam: (lastPage: IPageResult<IDictType>) => {
-      const current = Number(lastPage.pager.current);
-      const totalPage = Number(lastPage.pager.totalPage);
+      const current = Number(lastPage?.pager?.current);
+      const totalPage = Number(lastPage?.pager?.totalPage);
       if (current < totalPage) {
         return current + 1;
       }

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { ICaptcha, ILoginAccount } from '@/services/types/login.ts';
-import { computed, onUnmounted, reactive, ref, watch } from 'vue';
+
 import { CAPTCHA_EXPIRE_TIME } from '@/global/constants.ts';
 import router from '@/router';
 import globalToast from '@/services/core/toast.ts';
@@ -100,7 +100,7 @@ async function handleLogin() {
 
     loading.value = true;
     const name = router.currentRoute.value.name ?? '';
-    await loginAction(account, name as string);
+    await loginAction(account, name as string, false);
     globalToast.success(`${getGreeting()}，欢迎回来！`);
 
     // 登录成功，关闭弹窗
@@ -136,7 +136,7 @@ function resetForm() {
 // 监听弹窗显示状态
 watch(
   () => props.visible,
-  (newVisible) => {
+  (newVisible: boolean) => {
     if (newVisible) {
       // 弹窗打开时获取验证码
       getCaptcha();
@@ -167,14 +167,8 @@ function getGreeting() {
 </script>
 
 <template>
-  <UModal v-model="visible" :ui="{ width: 'max-w-md' }" :prevent-close="true">
-    <UCard>
-      <template #header>
-        <h3 class="text-lg font-semibold">
-          重新登录
-        </h3>
-      </template>
-
+  <UModal v-model:open="visible" title="重新登录" :ui="{ content: 'max-w-md' }" :dismissible="false" :close="false">
+    <template #body>
       <div class="flex flex-col gap-6">
         <div class="text-center">
           <div class="text-gray-500 dark:text-gray-400 text-sm mb-4">
@@ -242,7 +236,7 @@ function getGreeting() {
           <UButton label="登录" block :loading="loading" @click="handleLogin" />
         </div>
       </div>
-    </UCard>
+    </template>
   </UModal>
 </template>
 

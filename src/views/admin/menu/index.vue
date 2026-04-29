@@ -1,20 +1,16 @@
-<script setup lang="ts">
-import { ListSearch, PageContainer } from '@/components';
+<script lang="ts" setup>
+import { ListSearch } from '@/components';
+import { type MenuTreeNode, MenuType } from '@/types/menu';
 import type { FilterConfig, SearchParams } from '@/types/search';
 import type { TableColumn } from '@nuxt/ui';
-import { computed, h, onMounted, ref, resolveComponent } from 'vue';
 import MenuForm from './components/menu-form.vue';
 import { useMenuManagement } from './composables/useMenuManagement';
 import { menuApi } from '@/services/modules/menu';
 import { useLucideIcon } from '@/composables/useLucideIcon';
 import { MENU_TYPE_DICT } from '@/global/constants';
 
-const UIcon = resolveComponent('UIcon');
-const UBadge = resolveComponent('UBadge');
-const UButton = resolveComponent('UButton');
-
 // 使用 Lucide 图标 composable
-const { isLucideIcon, lucideIconName } = useLucideIcon();
+const {isLucideIcon, lucideIconName} = useLucideIcon();
 
 // 使用菜单管理组合函数
 const {
@@ -40,6 +36,9 @@ const {
     toast
 } = useMenuManagement();
 
+
+const {tableUi} = useTableSetting();
+
 // 搜索参数
 const searchParams = ref<SearchParams>({
     keyword: '',
@@ -59,10 +58,10 @@ const filterConfigs: FilterConfig[] = [
         label: '菜单类型',
         type: 'select',
         options: [
-            { label: '全部', value: '' },
-            { label: '目录', value: 'directory' },
-            { label: '菜单', value: 'menu' },
-            { label: '按钮', value: 'button' }
+            {label: '全部', value: ''},
+            {label: '目录', value: 'directory'},
+            {label: '菜单', value: 'menu'},
+            {label: '按钮', value: 'button'}
         ]
     },
     {
@@ -70,9 +69,9 @@ const filterConfigs: FilterConfig[] = [
         label: '状态',
         type: 'select',
         options: [
-            { label: '全部', value: '' },
-            { label: '启用', value: 1 },
-            { label: '禁用', value: 0 }
+            {label: '全部', value: ''},
+            {label: '启用', value: 1},
+            {label: '禁用', value: 0}
         ]
     },
     {
@@ -80,9 +79,9 @@ const filterConfigs: FilterConfig[] = [
         label: '是否显示',
         type: 'select',
         options: [
-            { label: '全部', value: '' },
-            { label: '显示', value: true },
-            { label: '隐藏', value: false }
+            {label: '全部', value: ''},
+            {label: '显示', value: true},
+            {label: '隐藏', value: false}
         ]
     }
 ];
@@ -92,124 +91,48 @@ const columns: TableColumn<any>[] = [
     {
         accessorKey: 'name',
         header: '菜单名称',
-        meta: { class: { th: 'min-w-[200px]' } },
-        cell: ({ row }) => {
-            return h(
-                'div',
-                {
-                    style: { paddingLeft: `${row.depth * 1.5}rem` },
-                    class: 'flex items-center gap-2'
-                },
-                [
-                    h(UButton, {
-                        color: 'neutral',
-                        variant: 'ghost',
-                        size: 'xs',
-                        icon: row.getIsExpanded() ? 'i-lucide-chevron-down' : 'i-lucide-chevron-right',
-                        class: !row.getCanExpand() && 'invisible',
-                        ui: { base: 'p-0', leadingIcon: 'size-4' },
-                        onClick: row.getToggleExpandedHandler()
-                    }),
-                    row.original.icon
-                        ? h(
-                            'div',
-                            { class: 'shrink-0 w-5 h-5 rounded bg-primary-50 dark:bg-primary-900/20 flex items-center justify-center' },
-                            [
-                                isLucideIcon(row.original.icon)
-                                    ? h(lucideIconName(row.original.icon), { class: 'w-3.5 h-3.5 text-primary-500', strokeWidth: 2 })
-                                    : h(UIcon, { name: row.original.icon, class: 'w-3.5 h-3.5 text-primary-500' })
-                            ]
-                        )
-                        : null,
-                    h('span', { class: 'font-medium text-gray-900 dark:text-white truncate' }, row.getValue('name'))
-                ]
-            );
-        }
+        meta: {class: {th: 'min-w-[200px]'}}
     },
     {
         accessorKey: 'type',
         header: '类型',
-        meta: { class: { th: 'w-28 text-center', td: 'text-center' } },
-        cell: ({ row }) => {
-            const type = String(row.original.menuType);
-            const label = MENU_TYPE_DICT[type] || type;
-            return h('span', { class: 'text-sm text-gray-700 dark:text-gray-300' }, label);
-        }
+        meta: {class: {th: 'w-28 text-center', td: 'text-center'}}
     },
     {
         accessorKey: 'path',
         header: '路由路径',
-        meta: { class: { th: 'min-w-[180px]' } },
-        cell: ({ row }) => {
-            if (row.original.isExternal && row.original.externalUrl) {
-                return h(
-                    'a',
-                    {
-                        href: row.original.externalUrl,
-                        target: '_blank',
-                        class: 'text-primary-500 hover:underline flex items-center gap-1 font-mono text-xs'
-                    },
-                    [row.original.externalUrl, h(UIcon, { name: 'i-lucide-external-link', class: 'w-3 h-3' })]
-                );
-            }
-            if (row.getValue('path')) {
-                return h(UBadge, { label: row.getValue('path'), color: 'gray', variant: 'soft', class: 'font-mono text-xs' });
-            }
-            return h('span', { class: 'text-gray-400' }, '-');
-        }
+        meta: {class: {th: 'min-w-[180px]'}}
     },
     {
         accessorKey: 'permission',
         header: '权限标识',
-        meta: { class: { th: 'min-w-[150px]' } },
-        cell: ({ row }) => {
-            const permission = row.getValue('permission');
-            return permission
-                ? h('code', { class: 'text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded' }, permission)
-                : h('span', { class: 'text-gray-400' }, '-');
-        }
+        meta: {class: {th: 'min-w-[150px]'}}
     },
     {
         accessorKey: 'sort',
         header: '排序',
-        meta: { class: { th: 'w-20 text-center', td: 'text-center' } },
-        cell: ({ row }) => h(UBadge, { label: String(row.getValue('sort') || 0), color: 'neutral', variant: 'subtle' })
+        meta: {class: {th: 'w-20 text-center', td: 'text-center'}}
     },
     {
         accessorKey: 'status',
         header: '状态',
-        meta: { class: { th: 'w-24 text-center', td: 'text-center' } },
-        cell: ({ row }) => {
-            const status = row.getValue('status');
-            return h(UBadge, {
-                label: status === 1 ? '启用' : '禁用',
-                color: status === 1 ? 'success' : 'error',
-                variant: 'subtle'
-            });
-        }
+        meta: {class: {th: 'w-24 text-center', td: 'text-center'}}
     },
     {
         accessorKey: 'visible',
         header: '显示',
-        meta: { class: { th: 'w-20 text-center', td: 'text-center' } },
-        cell: ({ row }) => {
-            const visible = row.getValue('visible');
-            return h(UIcon, {
-                name: visible ? 'i-lucide-eye' : 'i-lucide-eye-off',
-                class: visible ? 'w-4 h-4 text-primary-500' : 'w-4 h-4 text-gray-400'
-            });
-        }
+        meta: {class: {th: 'w-20 text-center', td: 'text-center'}}
     },
     {
         accessorKey: 'createTime',
         header: '创建时间',
-        meta: { class: { th: 'w-40' } },
-        cell: ({ row }) => {
-            const time = row.getValue('createTime');
-            return h('span', { class: 'text-sm text-gray-500 dark:text-gray-400' }, time || '-');
-        }
+        meta: {class: {th: 'w-40'}}
     },
-    { id: 'actions', header: '操作', meta: { class: { th: 'w-40 text-right', td: 'text-right' } } }
+    {
+        id: 'actions',
+        header: '操作',
+        meta: {class: {th: 'w-40 text-right', td: 'text-right'}}
+    }
 ];
 
 // 展开状态（使用索引作为 key）
@@ -233,15 +156,15 @@ const openDeleteConfirm = (row: any) => {
 };
 
 const openBatchDeleteConfirm = () => {
-    if (selectedMenus.value.length === 0) return;
+    if ( selectedMenus.value.length === 0 ) return;
     isBatchDelete.value = true;
     deleteModalVisible.value = true;
 };
 
 const confirmDelete = async () => {
-    if (isBatchDelete.value) {
+    if ( isBatchDelete.value ) {
         await batchDeleteMenus();
-    } else if (deleteTarget.value) {
+    } else if ( deleteTarget.value ) {
         await deleteMenu(deleteTarget.value);
     }
     deleteModalVisible.value = false;
@@ -281,18 +204,18 @@ const handleAddChild = (parentId: string) => {
  */
 const handleEdit = (menuId: string) => {
     const findMenu = (menus: any[], id: string): any => {
-        for (const menu of menus) {
-            if (menu.id === id) return menu;
-            if (menu.children) {
+        for ( const menu of menus ) {
+            if ( menu.id === id ) return menu;
+            if ( menu.children ) {
                 const found = findMenu(menu.children, id);
-                if (found) return found;
+                if ( found ) return found;
             }
         }
         return null;
     };
 
     const menu = findMenu(menuList.value, menuId);
-    if (menu) {
+    if ( menu ) {
         openEditDialog(menu);
     }
 };
@@ -321,7 +244,7 @@ const handleBatchAddButtons = async (buttons: any[]) => {
 
         // 确保有选中的菜单或当前编辑的菜单
         const menuId = formData.id || formData.parentId;
-        if (!menuId) {
+        if ( !menuId ) {
             toast.add({
                 color: 'orange',
                 title: '警告',
@@ -340,9 +263,9 @@ const handleBatchAddButtons = async (buttons: any[]) => {
         toast.add({
             color: 'success',
             title: '成功',
-            description: `成功添加 ${buttons.length} 个按钮`
+            description: `成功添加 ${ buttons.length } 个按钮`
         });
-    } catch (error) {
+    } catch ( error ) {
         console.error('批量添加按钮失败:', error);
         toast.add({
             color: 'red',
@@ -363,18 +286,19 @@ onMounted(() => {
 <template>
     <div class="h-full flex flex-col gap-4">
         <!-- 搜索区域 -->
-        <ListSearch v-model="searchParams" :filter-configs="filterConfigs" placeholder="搜索菜单名称、路径..." :loading="loading"
-            @search="handleSearch">
+        <ListSearch v-model="searchParams" :filter-configs="filterConfigs" :loading="loading"
+                    placeholder="搜索菜单名称、路径..."
+                    @search="handleSearch">
             <template #actions>
-                <UButton icon="i-lucide-plus" color="primary" @click="handleCreate">
+                <UButton color="primary" icon="i-lucide-plus" @click="handleCreate">
                     新增菜单
                 </UButton>
-                <UButton icon="i-lucide-trash-2" color="error" variant="soft" :disabled="selectedMenus.length === 0"
-                    @click="openBatchDeleteConfirm">
+                <UButton :disabled="selectedMenus.length === 0" color="error" icon="i-lucide-trash-2" variant="soft"
+                         @click="openBatchDeleteConfirm">
                     批量删除
                 </UButton>
-                <UButton icon="i-lucide-refresh-cw" color="neutral" variant="ghost" :loading="loading"
-                    @click="refreshMenus">
+                <UButton :loading="loading" color="neutral" icon="i-lucide-refresh-cw" variant="ghost"
+                         @click="refreshMenus">
                     刷新
                 </UButton>
             </template>
@@ -384,27 +308,91 @@ onMounted(() => {
         <div
             class="flex-1 bg-white dark:bg-gray-800 rounded-lg border border-gray-100 dark:border-gray-800 overflow-hidden flex flex-col">
             <div class="flex-1 overflow-auto">
-                <UTable v-model="selectedMenus" v-model:expanded="expanded" :data="menuList" :columns="columns"
-                    :loading="loading" :get-sub-rows="(row) => row.children" :ui="{
-                        base: 'border-separate border-spacing-0',
-                        th: { base: 'bg-gray-50 dark:bg-gray-800/50' },
-                        divide: 'divide-gray-100 dark:divide-gray-800',
-                        tbody: '[&>tr]:last:[&>td]:border-b-0',
-                        tr: 'group',
-                        td: 'empty:p-0 group-has-[td:not(:empty)]:border-b border-gray-100 dark:border-gray-800'
-                    }">
+                <UTable v-model="selectedMenus" v-model:expanded="expanded" :columns="columns" :data="menuList"
+                        :get-sub-rows="(row: MenuTreeNode) => row.children" :loading="loading" :ui="{base: 'border-separate border-spacing-0',
+      tbody: '[&>tr]:last:[&>td]:border-b-0',
+      tr: 'group',
+      td: 'empty:p-0 group-has-[td:not(:empty)]:border-b border-default'}">
+                    <!-- 菜单名称列 -->
+                    <template #name-cell="{ row }">
+                        <div :style="{ paddingLeft: `${row.depth * 1.5}rem` }" class="flex items-center gap-2">
+                            <UButton :class="!row.getCanExpand() && 'invisible'"
+                                     :icon="row.getIsExpanded() ? 'i-lucide-chevron-down' : 'i-lucide-chevron-right'"
+                                     :ui="{ base: 'p-0', leadingIcon: 'size-4' }"
+                                     color="neutral"
+                                     size="xs"
+                                     variant="ghost"
+                                     @click="row.getToggleExpandedHandler()()"/>
+                            <div v-if="row.original.icon"
+                                 class="shrink-0 w-5 h-5 rounded bg-primary-50 dark:bg-primary-900/20 flex items-center justify-center">
+                                <component :is="lucideIconName(row.original.icon)"
+                                           v-if="isLucideIcon(row.original.icon)" :stroke-width="2"
+                                           class="w-3.5 h-3.5 text-primary-500"/>
+                                <UIcon v-else :name="row.original.icon" class="w-3.5 h-3.5 text-primary-500"/>
+                            </div>
+                            <span class="font-medium text-gray-900 dark:text-white truncate">{{
+                                    row.getValue('name')
+                                }}</span>
+                        </div>
+                    </template>
+
+                    <!-- 类型列 -->
+                    <template #type-cell="{ row }">
+                        <UBadge>
+                            {{ MENU_TYPE_DICT[String(row.original.menuType)] || row.original.menuType }}
+                        </UBadge>
+                    </template>
+
+                    <!-- 路由路径列 -->
+                    <template #path-cell="{ row }">
+                        <span v-if="row.getValue('path')" class="text-gray-900 dark:text-white truncate">
+                            {{ row.getValue('path') }}
+                        </span>
+                        <span v-else class="text-gray-400">-</span>
+                    </template>
+
+                    <!-- 权限标识列 -->
+                    <template #permission-cell="{ row }">
+                        <code v-if="row.getValue('permission')"
+                              class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
+                            {{ row.getValue('permission') }}
+                        </code>
+                        <span v-else class="text-gray-400">-</span>
+                    </template>
+
+
+                    <!-- 状态列 -->
+                    <template #status-cell="{ row }">
+                        <UBadge :color="row.getValue('status') === 1 ? 'success' : 'error'"
+                                :label="row.getValue('status') === 1 ? '启用' : '禁用'" variant="subtle"/>
+                    </template>
+
+                    <!-- 显示列 -->
+                    <template #visible-cell="{ row }">
+                        <UIcon :class="row.getValue('visible') ? 'w-4 h-4 text-primary-500' : 'w-4 h-4 text-gray-400'"
+                               :name="row.getValue('visible') ? 'i-lucide-eye' : 'i-lucide-eye-off'"/>
+                    </template>
+
+                    <!-- 创建时间列 -->
+                    <template #createTime-cell="{ row }">
+                        <span class="text-sm text-gray-500 dark:text-gray-400">
+                            {{ row.getValue('createTime') || '-' }}
+                        </span>
+                    </template>
+
                     <!-- 操作列 -->
                     <template #actions-cell="{ row }">
-                        <div class="flex items-center justify-end gap-1">
-                            <UButton icon="i-lucide-plus" color="primary" variant="ghost"
-                                @click="handleAddChild(row.id)">
+                        <div v-if="row.original.menuType !== MenuType.BUTTON"
+                             class="flex items-center justify-end gap-1">
+                            <UButton color="primary" icon="i-lucide-plus" variant="ghost"
+                                     @click="handleAddChild(row.id)">
                                 添加子菜单
                             </UButton>
-                            <UButton icon="i-lucide-pencil" color="neutral" variant="ghost" @click="handleEdit(row.id)">
+                            <UButton color="neutral" icon="i-lucide-pencil" variant="ghost" @click="handleEdit(row.id)">
                                 编辑
                             </UButton>
-                            <UButton icon="i-lucide-trash-2" color="error" variant="ghost"
-                                @click="openDeleteConfirm(row)">
+                            <UButton color="error" icon="i-lucide-trash-2" variant="ghost"
+                                     @click="openDeleteConfirm(row)">
                                 删除
                             </UButton>
                         </div>
@@ -414,13 +402,13 @@ onMounted(() => {
                     <template #empty>
                         <div class="flex flex-col items-center justify-center py-16 gap-3">
                             <div class="p-3 rounded-full bg-gray-100 dark:bg-gray-800">
-                                <UIcon name="i-lucide-folder-tree" class="w-8 h-8 text-gray-400" />
+                                <UIcon class="w-8 h-8 text-gray-400" name="i-lucide-folder-tree"/>
                             </div>
                             <div class="text-center">
                                 <p class="text-sm font-medium text-gray-900 dark:text-white">暂无菜单数据</p>
                                 <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">点击下方按钮创建第一个菜单</p>
                             </div>
-                            <UButton label="新增菜单" icon="i-lucide-plus" color="primary" @click="handleCreate" />
+                            <UButton color="primary" icon="i-lucide-plus" label="新增菜单" @click="handleCreate"/>
                         </div>
                     </template>
                 </UTable>
@@ -428,9 +416,9 @@ onMounted(() => {
         </div>
 
         <!-- 菜单表单弹窗 -->
-        <MenuForm v-model:visible="dialogVisible" v-model:form-data="formData" :title="dialogTitle"
-            :parent-menu-options="parentMenuOptions" :loading="loading" @submit="handleFormSubmit"
-            @close="handleFormClose" @batch-add-buttons="handleBatchAddButtons" />
+        <MenuForm v-model:form-data="formData" v-model:visible="dialogVisible" :loading="loading"
+                  :parent-menu-options="parentMenuOptions" :title="dialogTitle" @close="handleFormClose"
+                  @submit="handleFormSubmit" @batch-add-buttons="handleBatchAddButtons"/>
 
         <!-- 删除确认弹窗 -->
         <UModal v-model:open="deleteModalVisible" :ui="{ content: 'max-w-md' }">
@@ -438,35 +426,33 @@ onMounted(() => {
                 <div class="space-y-4">
                     <div class="flex items-start gap-3">
                         <div class="shrink-0 p-2 rounded-full bg-error-50 dark:bg-error-900/20">
-                            <UIcon name="i-lucide-alert-triangle" class="w-5 h-5 text-error-500" />
+                            <UIcon class="w-5 h-5 text-error-500" name="i-lucide-alert-triangle"/>
                         </div>
                         <div class="flex-1 min-w-0">
                             <h3 class="text-base font-semibold text-gray-900 dark:text-white">
                                 确认删除
                             </h3>
                             <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                                {{ isBatchDelete ? `确定要删除选中的 ${selectedMenus.length} 个菜单吗？` : `确定要删除菜单
-                                "${deleteTarget?.name}" 吗？` }}
+                                {{
+                                    isBatchDelete ? `确定要删除选中的 ${ selectedMenus.length } 个菜单吗？` : `确定要删除菜单
+                                "${ deleteTarget?.name }" 吗？`
+                                }}
                             </p>
                         </div>
                     </div>
 
-                    <UAlert color="error" variant="subtle" icon="i-lucide-info" title="警告"
-                        description="此操作无法撤销，删除后数据将永久丢失，请谨慎操作。" />
+                    <UAlert color="error" description="此操作无法撤销，删除后数据将永久丢失，请谨慎操作。"
+                            icon="i-lucide-info" title="警告"
+                            variant="subtle"/>
                 </div>
             </template>
 
             <template #footer>
                 <div class="flex justify-end gap-2">
-                    <UButton label="取消" color="neutral" variant="ghost" @click="deleteModalVisible = false" />
-                    <UButton label="确认删除" color="error" icon="i-lucide-trash-2" @click="confirmDelete" />
+                    <UButton color="neutral" label="取消" variant="ghost" @click="deleteModalVisible = false"/>
+                    <UButton color="error" icon="i-lucide-trash-2" label="确认删除" @click="confirmDelete"/>
                 </div>
             </template>
         </UModal>
-
-        <!-- 菜单表单弹窗 -->
-        <MenuForm v-model:visible="dialogVisible" v-model:form-data="formData" :title="dialogTitle"
-            :parent-menu-options="parentMenuOptions" :loading="loading" @submit="handleFormSubmit"
-            @close="handleFormClose" @batch-add-buttons="handleBatchAddButtons" />
     </div>
 </template>

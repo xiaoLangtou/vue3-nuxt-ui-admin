@@ -30,13 +30,14 @@ export function useMenuManagement() {
     const formData = reactive<MenuFormData>({
         name: '',
         icon: '',
-        type: 'menu' as MenuType,
+        type: MenuType.MENU,
         path: '',
         component: '',
         permission: '',
-        isExternal: false,
-        externalUrl: '',
-        visible: true,
+        iframeUrl: '',
+        isIframe: '0',
+        isHide: '0',
+        isKeepAlive: '1',
         sort: 0,
         parentId: '',
         status: 1 as MenuStatus,
@@ -70,13 +71,57 @@ export function useMenuManagement() {
                 Object.entries(params).filter(([_, value]) => value !== undefined)
             );
             const response = await menuApi.getMenuTree(filteredParams);
-            menuList.value = response || [];
+
+            // 处理菜单数据，将按钮作为子节点添加到菜单树中
+            const processMenuData = (items: any[]): MenuTreeNode[] => {
+                if (!items) return [];
+                return items.map((item) => {
+                    const newItem = { ...item };
+                    // 兼容处理 sortOrder
+                    if (newItem.sortOrder !== undefined && newItem.sort === undefined) {
+                        newItem.sort = newItem.sortOrder;
+                    }
+
+                    // 递归处理子菜单
+                    let children = newItem.children ? processMenuData(newItem.children) : [];
+
+                    // 将按钮转换为菜单节点
+                    if (newItem.buttons && newItem.buttons.length > 0) {
+                        const buttonNodes = newItem.buttons.map((btn: any) => ({
+                            id: `btn-${btn.id}`,
+                            name: btn.name,
+                            permission: btn.permission,
+                            type: MenuType.BUTTON,
+                            menuType: MenuType.BUTTON,
+                            parentId: newItem.id,
+                            sort: 0,
+                            status: 1,
+                            visible: true,
+                            path: '',
+                            component: '',
+                            icon: 'i-lucide-circle-dot',
+                            children: []
+                        }));
+                        children = [...children, ...buttonNodes];
+                    }
+
+                    if (children.length > 0) {
+                        newItem.children = children;
+                    } else {
+                        delete newItem.children;
+                    }
+
+                    return newItem;
+                });
+            };
+
+            menuList.value = processMenuData(response || []);
 
             // 默认展开第一级
             expandedKeys.value = {};
-            menuList.value.forEach((menu) => {
+            menuList.value.forEach((menu: MenuTreeNode) => {
                 if (menu.children && menu.children.length > 0) {
-                    expandedKeys.value[menu.id] = true;
+                    expandedKeys.value[menu.id!] = true;
                 }
             });
         } catch (error) {
@@ -110,13 +155,14 @@ export function useMenuManagement() {
             id: undefined,
             name: '',
             icon: '',
-            type: MenuType.MENU as MenuType,
+            type: MenuType.MENU,
             path: '',
             component: '',
             permission: '',
-            isExternal: false,
-            externalUrl: '',
-            visible: true,
+            iframeUrl: '',
+            isIframe: '0',
+            isHide: '0',
+            isKeepAlive: '1',
             sort: 0,
             parentId: '',
             status: 1 as MenuStatus,
@@ -149,9 +195,10 @@ export function useMenuManagement() {
             path: menu.path || '',
             component: menu.component || '',
             permission: menu.permission || '',
-            isExternal: menu.isExternal,
-            externalUrl: menu.externalUrl || '',
-            visible: menu.visible,
+            iframeUrl: menu.iframeUrl || '',
+            isIframe: menu.isIframe || '0',
+            isHide: menu.isHide || '0',
+            isKeepAlive: menu.isKeepAlive || '1',
             sort: menu.sort,
             parentId: menu.parentId || '',
             status: menu.status,
@@ -177,9 +224,10 @@ export function useMenuManagement() {
                 path: formData.path,
                 component: formData.component,
                 permission: formData.permission,
-                isExternal: formData.isExternal,
-                externalUrl: formData.externalUrl,
-                visible: formData.visible,
+                isLink: formData.isLink,
+                iframeUrl: formData.iframeUrl,
+                isIframe: formData.isIframe,
+                isHide: formData.isHide,
                 sort: formData.sort,
                 parentId: formData.parentId,
                 status: formData.status,

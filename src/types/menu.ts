@@ -6,6 +6,8 @@ export enum MenuType {
   DIRECTORY = 0,
   /** 菜单 */
   MENU = 1,
+  /** 按钮 */
+  BUTTON = 2,
 }
 
 /**
@@ -80,6 +82,14 @@ export interface MenuBase {
   isHide?: string;
   /** 是否外链 */
   isIframe?: string;
+  /** 是否内嵌 */
+  isEmbedded?: string;
+  /** 外链地址 */
+  iframeUrl?: string;
+  /** 菜单状态 1:启用 0:禁用 */
+  status?: number;
+  /** 备注 */
+  remark?: string;
   /** 按钮列表 */
   buttons?: Array<{
     name: string;
@@ -153,6 +163,10 @@ export interface MenuFormData {
   isHide?: string;
   /** 是否外链 */
   isIframe?: string;
+  /** 菜单状态 1:启用 0:禁用 */
+  status?: number;
+  /** 备注 */
+  remark?: string;
   /** 按钮列表 */
   buttons?: Array<{
     name: string;

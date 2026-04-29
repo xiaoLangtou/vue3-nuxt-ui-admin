@@ -166,7 +166,7 @@ defineOptions({
 
 <template>
     <USlideover v-model:open="visible" title="同步接口" :ui="{
-        content: ' max-w-[80%] ',
+        content: 'max-w-[80%]',
         footer: 'flex items-center justify-end gap-3 p-4 sm:px-6'
     }">
         <template #body>

@@ -1644,6 +1644,12 @@
     "__source": "dir"
   },
   {
+    "name": "useTableSetting",
+    "as": "useTableSetting",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/src/composables/useTableSetting.ts",
+    "__source": "dir"
+  },
+  {
     "name": "useFavoritesStore",
     "as": "useFavoritesStore",
     "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/src/stores/favorites.ts",
@@ -1714,290 +1720,290 @@
   {
     "name": "defineLocale",
     "as": "defineLocale",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/defineLocale.js",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/defineLocale.js",
     "__source": "dir"
   },
   {
     "name": "extendLocale",
     "as": "extendLocale",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/defineLocale.js",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/defineLocale.js",
     "__source": "dir"
   },
   {
     "name": "ShortcutConfig",
     "as": "ShortcutConfig",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/defineShortcuts.d.ts",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/defineShortcuts.d.ts",
     "type": true,
     "__source": "dir"
   },
   {
     "name": "ShortcutsConfig",
     "as": "ShortcutsConfig",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/defineShortcuts.d.ts",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/defineShortcuts.d.ts",
     "type": true,
     "__source": "dir"
   },
   {
     "name": "ShortcutsOptions",
     "as": "ShortcutsOptions",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/defineShortcuts.d.ts",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/defineShortcuts.d.ts",
     "type": true,
     "__source": "dir"
   },
   {
     "name": "extractShortcuts",
     "as": "extractShortcuts",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/defineShortcuts.js",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/defineShortcuts.js",
     "__source": "dir"
   },
   {
     "name": "defineShortcuts",
     "as": "defineShortcuts",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/defineShortcuts.js",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/defineShortcuts.js",
     "__source": "dir"
   },
   {
     "name": "useFileUpload",
     "as": "useFileUpload",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useFileUpload.js",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useFileUpload.js",
     "__source": "dir"
   },
   {
     "name": "kbdKeysMap",
     "as": "kbdKeysMap",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useKbd.js",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useKbd.js",
     "__source": "dir"
   },
   {
     "name": "useKbd",
     "as": "useKbd",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useKbd.js",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useKbd.js",
     "__source": "dir"
   },
   {
     "name": "useOverlay",
     "as": "useOverlay",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useOverlay.js",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useOverlay.js",
     "__source": "dir"
   },
   {
     "name": "useResizable",
     "as": "useResizable",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useResizable.js",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useResizable.js",
     "__source": "dir"
   },
   {
     "name": "useScrollspy",
     "as": "useScrollspy",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useScrollspy.js",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useScrollspy.js",
     "__source": "dir"
   },
   {
     "name": "toastMaxInjectionKey",
     "as": "toastMaxInjectionKey",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useToast.js",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useToast.js",
     "__source": "dir"
   },
   {
     "name": "useToast",
     "as": "useToast",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useToast.js",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useToast.js",
     "__source": "dir"
   },
   {
     "name": "avatarGroupInjectionKey",
     "as": "avatarGroupInjectionKey",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useAvatarGroup.js",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useAvatarGroup.js",
     "__source": "dir"
   },
   {
     "name": "useAvatarGroup",
     "as": "useAvatarGroup",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useAvatarGroup.js",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useAvatarGroup.js",
     "__source": "dir"
   },
   {
     "name": "UseComponentIconsProps",
     "as": "UseComponentIconsProps",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useComponentIcons.d.ts",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useComponentIcons.d.ts",
     "type": true,
     "__source": "dir"
   },
   {
     "name": "useComponentIcons",
     "as": "useComponentIcons",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useComponentIcons.js",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useComponentIcons.js",
     "__source": "dir"
   },
   {
     "name": "useContentSearch",
     "as": "useContentSearch",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useContentSearch.js",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useContentSearch.js",
     "__source": "dir"
   },
   {
     "name": "EditorMenuOptions",
     "as": "EditorMenuOptions",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useEditorMenu.d.ts",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useEditorMenu.d.ts",
     "type": true,
     "__source": "dir"
   },
   {
     "name": "useEditorMenu",
     "as": "useEditorMenu",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useEditorMenu.js",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useEditorMenu.js",
     "__source": "dir"
   },
   {
     "name": "fieldGroupInjectionKey",
     "as": "fieldGroupInjectionKey",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useFieldGroup.js",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useFieldGroup.js",
     "__source": "dir"
   },
   {
     "name": "useFieldGroup",
     "as": "useFieldGroup",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useFieldGroup.js",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useFieldGroup.js",
     "__source": "dir"
   },
   {
     "name": "UseFileUploadOptions",
     "as": "UseFileUploadOptions",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useFileUpload.d.ts",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useFileUpload.d.ts",
     "type": true,
     "__source": "dir"
   },
   {
     "name": "formOptionsInjectionKey",
     "as": "formOptionsInjectionKey",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useFormField.js",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useFormField.js",
     "__source": "dir"
   },
   {
     "name": "formBusInjectionKey",
     "as": "formBusInjectionKey",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useFormField.js",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useFormField.js",
     "__source": "dir"
   },
   {
     "name": "formStateInjectionKey",
     "as": "formStateInjectionKey",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useFormField.js",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useFormField.js",
     "__source": "dir"
   },
   {
     "name": "formFieldInjectionKey",
     "as": "formFieldInjectionKey",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useFormField.js",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useFormField.js",
     "__source": "dir"
   },
   {
     "name": "inputIdInjectionKey",
     "as": "inputIdInjectionKey",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useFormField.js",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useFormField.js",
     "__source": "dir"
   },
   {
     "name": "formInputsInjectionKey",
     "as": "formInputsInjectionKey",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useFormField.js",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useFormField.js",
     "__source": "dir"
   },
   {
     "name": "formLoadingInjectionKey",
     "as": "formLoadingInjectionKey",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useFormField.js",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useFormField.js",
     "__source": "dir"
   },
   {
     "name": "formErrorsInjectionKey",
     "as": "formErrorsInjectionKey",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useFormField.js",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useFormField.js",
     "__source": "dir"
   },
   {
     "name": "useFormField",
     "as": "useFormField",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useFormField.js",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useFormField.js",
     "__source": "dir"
   },
   {
     "name": "KbdKey",
     "as": "KbdKey",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useKbd.d.ts",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useKbd.d.ts",
     "type": true,
     "__source": "dir"
   },
   {
     "name": "KbdKeySpecific",
     "as": "KbdKeySpecific",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useKbd.d.ts",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useKbd.d.ts",
     "type": true,
     "__source": "dir"
   },
   {
     "name": "localeContextInjectionKey",
     "as": "localeContextInjectionKey",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useLocale.js",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useLocale.js",
     "__source": "dir"
   },
   {
     "name": "useLocale",
     "as": "useLocale",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useLocale.js",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useLocale.js",
     "__source": "dir"
   },
   {
     "name": "OverlayOptions",
     "as": "OverlayOptions",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useOverlay.d.ts",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useOverlay.d.ts",
     "type": true,
     "__source": "dir"
   },
   {
     "name": "Overlay",
     "as": "Overlay",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useOverlay.d.ts",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useOverlay.d.ts",
     "type": true,
     "__source": "dir"
   },
   {
     "name": "portalTargetInjectionKey",
     "as": "portalTargetInjectionKey",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/usePortal.js",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/usePortal.js",
     "__source": "dir"
   },
   {
     "name": "usePortal",
     "as": "usePortal",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/usePortal.js",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/usePortal.js",
     "__source": "dir"
   },
   {
     "name": "UseResizableProps",
     "as": "UseResizableProps",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useResizable.d.ts",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useResizable.d.ts",
     "type": true,
     "__source": "dir"
   },
   {
     "name": "UseResizableReturn",
     "as": "UseResizableReturn",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useResizable.d.ts",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useResizable.d.ts",
     "type": true,
     "__source": "dir"
   },
   {
     "name": "Toast",
     "as": "Toast",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/composables/useToast.d.ts",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/composables/useToast.d.ts",
     "type": true,
     "__source": "dir"
   },
   {
     "name": "useAppConfig",
     "as": "useAppConfig",
-    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_@babel+parser@7.28.6_@floating-ui+dom@1.7.4_@tiptap+extension-drag-handl_286d14334bd6672cb3446034e2357bb2/node_modules/@nuxt/ui/dist/runtime/vue/composables/useAppConfig.js",
+    "from": "/Volumes/weipengcheng/个人项目/tva/vue-nuxt-ui-admin/node_modules/.pnpm/@nuxt+ui@4.3.0_d32b262d70b1e8d6a61378e47b3d2f30/node_modules/@nuxt/ui/dist/runtime/vue/composables/useAppConfig.js",
     "__source": "dir"
   }
 ]

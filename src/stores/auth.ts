@@ -31,7 +31,7 @@ export const useAuthStore = defineStore('auth', () => {
   const setUserInfo = (_userInfo: IUserInfo) => {
     userInfo.value = _userInfo;
   };
-  const loginAction = async (account: ILoginAccount, homePath?: string | undefined) => {
+  const loginAction = async (account: ILoginAccount, homePath?: string | undefined, redirect: boolean = true) => {
     const result = await to<ILoginResponse>(
       loginService.login({
         username: account.username,
@@ -48,9 +48,11 @@ export const useAuthStore = defineStore('auth', () => {
 
     setUserInfo(userInfo);
 
-    await router.replace({
-      name: homePath ?? 'dashboard',
-    });
+    if (redirect) {
+      await router.replace({
+        name: homePath ?? 'dashboard',
+      });
+    }
   };
 
   const logoutAction = async () => {
